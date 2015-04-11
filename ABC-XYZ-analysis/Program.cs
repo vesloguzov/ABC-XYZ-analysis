@@ -8,6 +8,7 @@ namespace ABC_XYZ_analysis
 {
     static class Program
     {
+        //public static Form1 f1;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>

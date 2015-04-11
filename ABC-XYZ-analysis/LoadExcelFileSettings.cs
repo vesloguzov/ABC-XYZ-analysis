@@ -1,4 +1,5 @@
 ﻿using System;
+using ABC_XYZ_analysis.Properties;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,25 +24,54 @@ namespace ABC_XYZ_analysis
         {
         this.MainForm = MainForm;
            InitializeComponent();
-        }
-
-        private void LoadExcelFileSettings_Load(object sender, EventArgs e)
-        {
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        string checked_table = "0";
+        string checked_heads = "0";
+
+        public Dictionary<string, string> local = new Dictionary<string, string>();
+
+        public void LoadExcelFileSettings_Load(object sender, EventArgs e)
         {
 
+            Dictionary<string, string> settings = MainForm.getExcelFileSettings();
+            local = MainForm.getExcelFileSettings();
+            local.Add("checked_table", checked_table);
+            local.Add("checked_heads", checked_heads);
+            string s = settings["tables_names"]; // имена таблиц 
+            String[] tables_names = s.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); // парсим имена в массив
+            string file_name = settings["file_name"];// имя самого файла
+            label3.Text = "Вы собираетесь загрузить файл: "+file_name;
+            label1.Text = "Листов в Вашем документе: " + settings["tables_count"] + ". Пожалуйста, выберите нужный для работы лист.";
+            for (int i = 0; i < tables_names.Length; i++)
+            {
+                comboBox1.Items.Add(tables_names[i]); // добавляем имена в комбобокс
+            }
+            comboBox1.SelectedIndex = 0; // по дефолту выбран первый лист
+            MainForm.setExcelFileSettings(local);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> settings = MainForm.getExcelFileSettings();
-            label1.Text = settings["tables_count"];
-            label1.Text = settings["tables_count"];
-            label1.Text = settings["tables_count"];
-            label1.Text = settings["tables_count"];
+            checked_table = comboBox1.SelectedIndex.ToString(); // номер выбранной таблицы
+            //string checked_heads = "";
+            if (checkBox1.Checked)
+            {
+                checked_heads = "1"; // есть ли заголовки
+            }
+            else
+            {
+                checked_heads = "0";
+            }
+            local["checked_table"] = checked_table;
+            local["checked_heads"] = checked_heads;
+            MainForm.setExcelFileSettings(local);
+            Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }
