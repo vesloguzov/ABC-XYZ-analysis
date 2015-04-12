@@ -63,7 +63,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 2;
-
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(9, 41);
@@ -80,8 +80,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(271, 45);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Отметьте этот пункт, если в первой строке Вашего документа содержаться наименован" +
-    "ия столбцов, а не численные данные.";
+            this.label2.Text = "Отметьте этот пункт, если в первой строке Вашего документа содержатся наименовани" +
+    "я столбцов, а не численные данные.";
             this.label2.UseCompatibleTextRendering = true;
             // 
             // label3
