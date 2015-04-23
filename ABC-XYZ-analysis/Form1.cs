@@ -15,16 +15,28 @@ namespace ABC_XYZ_analysis
 {
     public partial class Form1 : Form
     {
+        List<Product> ProductsList; // все товары
+        //private Dictionary<string>
         private Dictionary<string, string> ExcelFileSettings = new Dictionary<string, string>(); // словарь с настройками для загружаемого excel файла
+
+        public Dictionary<string, int> ColumnsList = new Dictionary<string, int>();//имена колонок и их номера входной таблицы
         public Form1()
         {
             InitializeComponent();
+        }
+
+        public Dictionary<string, int> getColumnsList()
+        {
+            return ColumnsList;
+        }
+        public void setColumnsList(Dictionary<string, int> ColumnsList)
+        {
+            this.ColumnsList = ColumnsList;
         }
         public Dictionary<string, string> getExcelFileSettings()
         {
             return ExcelFileSettings;
         }
-
         public void setExcelFileSettings(Dictionary<string, string> ExcelFileSettings)
         {
             this.ExcelFileSettings = ExcelFileSettings;
@@ -123,6 +135,20 @@ namespace ABC_XYZ_analysis
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private void DataToDictionary()
+        {
+ 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                ColumnsList.Add(dataGridView1.Columns[i].Name,i);
+            }
+            new ColumnsForAnalysis(this).ShowDialog();
         }
     }
 }

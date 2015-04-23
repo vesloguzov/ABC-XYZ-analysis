@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnsForAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColumnsForAnalysis.Designer.cs">
+      <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,8 +71,12 @@
     <Compile Include="LoadExcelFileSettings.Designer.cs">
       <DependentUpon>LoadExcelFileSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ColumnsForAnalysis.resx">
+      <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
