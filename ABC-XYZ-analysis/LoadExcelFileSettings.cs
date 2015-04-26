@@ -18,19 +18,25 @@ namespace ABC_XYZ_analysis
         public LoadExcelFileSettings()
         {
             InitializeComponent();
+            //this.FormClosing += new FormClosingEventHandler(LoadExcelFileSettings_FormClosing);
         }
 
         public LoadExcelFileSettings(Form1 MainForm)
         {
         this.MainForm = MainForm;
            InitializeComponent();
-
-        }
+           //this.FormClosing += new FormClosingEventHandler(LoadExcelFileSettings_FormClosing);
+          }
 
         string checked_table = "0";
         string checked_heads = "0";
 
         public Dictionary<string, string> local = new Dictionary<string, string>();
+
+        public Exception Exc()
+        {
+            return new Exception();
+        }
 
         public void LoadExcelFileSettings_Load(object sender, EventArgs e)
         {
@@ -74,5 +80,18 @@ namespace ABC_XYZ_analysis
         {
 
         }
+        /*
+        private void LoadExcelFileSettings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing) return;
+          //  DialogResult ans
+          //  MessageBox.Show("No");
+           e.Cancel = DialogResult.Yes != MessageBox.Show("Прервать загрузку документа?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+           if (e.Cancel == false)
+           {
+               local["checked_table"] = "-1";
+           }
+        }
+         */
     }
 }

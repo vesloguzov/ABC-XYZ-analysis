@@ -15,16 +15,26 @@ namespace ABC_XYZ_analysis
 {
     public partial class Form1 : Form
     {
-        List<Product> ProductsList; // все товары
+        private List<Product> ProductsList = new List<Product>(); // все товары
         //private Dictionary<string>
+
         private Dictionary<string, string> ExcelFileSettings = new Dictionary<string, string>(); // словарь с настройками для загружаемого excel файла
 
         public Dictionary<string, int> ColumnsList = new Dictionary<string, int>();//имена колонок и их номера входной таблицы
+        
         public Form1()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
-
+        internal List<Product> getProductsList()
+        {
+            return ProductsList;
+        }
+        internal void setProductsList(List<Product> ProductsList)
+        {
+            this.ProductsList = ProductsList;
+        }
         public Dictionary<string, int> getColumnsList()
         {
             return ColumnsList;
@@ -83,32 +93,41 @@ namespace ABC_XYZ_analysis
                     ExcelFileSettings.Add("tables_count", tables_count.ToString()); // заполняем данные
                     ExcelFileSettings.Add("tables_names",tables_names);
                     ExcelFileSettings.Add("file_name",ofd.SafeFileName);
-                    new LoadExcelFileSettings(this).ShowDialog(); // открываем новое окно
+                  
+                    
+                    new LoadExcelFileSettings(this).ShowDialog(); // открываем новое окно настроек загрузки файла
 
                     //Если данное значение установлено в true
                     //то первая строка используется в качестве 
                     //заголовков для колонок
-                    
-                    if (ExcelFileSettings["checked_heads"]=="1")
-                    {
-                        IEDR.IsFirstRowAsColumnNames = true;
+                  
+                        if (ExcelFileSettings["checked_heads"] == "1")
+                        {
+                            IEDR.IsFirstRowAsColumnNames = true;
+                        }
+                        else
+                        {
+                            IEDR.IsFirstRowAsColumnNames = false;
+                        }
+
+                        int checked_table = 0; // номер выбранного листа
+                        checked_table = Convert.ToInt32(ExcelFileSettings["checked_table"]); // получаем этот номер
+
+                        DataSet ds1 = IEDR.AsDataSet();
+
+                        //Устанавливаем в качестве источника данных dataset 
+                        //с указанием номера таблицы. Номер таблицы указавает 
+                        //на соответствующий лист в файле нумерация листов 
+                        //начинается с нуля.
+                        try
+                        {   
+                        dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
+                        label1.Text = "Путь к файлу: " + ofd.FileName;
                     }
-                    else
+                    catch
                     {
-                        IEDR.IsFirstRowAsColumnNames = false;
                     }
 
-                    int checked_table = 0; // номер выбранного листа
-                    checked_table = Convert.ToInt32(ExcelFileSettings["checked_table"]); // получаем этот номер
-                    
-                    DataSet ds1 = IEDR.AsDataSet();
-
-                    //Устанавливаем в качестве источника данных dataset 
-                    //с указанием номера таблицы. Номер таблицы указавает 
-                    //на соответствующий лист в файле нумерация листов 
-                    //начинается с нуля.
-                    label1.Text = "Путь к файлу: " + ofd.FileName;
-                    dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
                     IEDR.Close();
                     ExcelFileSettings.Clear();
                 }
@@ -136,19 +155,69 @@ namespace ABC_XYZ_analysis
         {
 
         }
-        private void DataToDictionary()
+        private List<Product> DataToDictionary(Dictionary<string, int> columns)
         {
- 
-        }
+            /****
+             *  Метод переводит данные из DataGridView в 
+             *  список типа List<Product>. Входное значение - 
+             *  словарь с выбранными колонками (колонки со значениями 
+             *  продаж и колонка имени).
+             ***/
+            List<Product> products = new List<Product>(); // локальный список товаров
+            int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
+            columns.Remove("name");
 
-        private void button1_Click(object sender, EventArgs e)
-        {
             
-            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            for (int i=0; i < dataGridView1.RowCount-2; i++)
             {
-                ColumnsList.Add(dataGridView1.Columns[i].Name,i);
+                Product product;
+                List<double> values_analysis = new List<double>();
+
+                for (int j = 0; j < columns.Count; j++)
+                {
+                    values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
+                }
+               
+                product = new Product(i, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
+                product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
+                products.Add(product); // добавляем продукт в список
+                //setProductsList(products);
+            }
+
+           // label2.Text = "Complete";
+            return products;
+             }
+        private void ColumnsForAnalysis()
+        {
+            setProductsList(new List<Product>()); // очищаем список продуктов
+
+            ColumnsList.Clear();
+            for (int i = 0; i < dataGridView1.Columns.Count; i++) // собираем имена колонок
+            {
+                ColumnsList.Add(dataGridView1.Columns[i].Name, i);
             }
             new ColumnsForAnalysis(this).ShowDialog();
+            ColumnsList = getColumnsList();
+
+            ProductsList = DataToDictionary(ColumnsList);
+            label2.Text = "Complete";
+        
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ColumnsForAnalysis();
+            Form2 f2 = new Form2();
+            f2.Show();
+            f2.listView2.Items.Clear();
+
+        }
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing) return;
+            e.Cancel = DialogResult.Yes != MessageBox.Show("Вы действительно хотите выйти ?", "Внимание",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
     }
 }
