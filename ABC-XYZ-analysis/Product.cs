@@ -14,8 +14,8 @@ namespace ABC_XYZ_analysis
         public int number; //  номер
         public string name; // имя
         public List<double> values_analysis; // список значений объемов продаж за отрезки
-        private double sum_values; // сумма бъемов продаж за весь период
-        private double average_value; // среднее значение
+        public double sum_values; // сумма бъемов продаж за весь период
+        public double average_value; // среднее значение
 
         /***
          * Конструктор класса

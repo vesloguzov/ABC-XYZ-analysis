@@ -286,7 +286,7 @@ namespace ABC_XYZ_analysis
 
             dataGridView1.DataSource = null; // полность очищаем datagridview
 
-            dataGridView1.ColumnCount = 2 + columnsList.Count(); // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными)
+            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам))
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
@@ -294,6 +294,10 @@ namespace ABC_XYZ_analysis
             {
                 dataGridView1.Columns[i + 2].Name = columnsList.Keys.ToList()[i]; // добавляем имена колонок остальных
             }
+            
+            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Сумма"; // добавляем колонки
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Среднее значение";
+            
 
             for (int i = 0; i < ProductsList.Count; i++)
             {
@@ -303,7 +307,14 @@ namespace ABC_XYZ_analysis
                 {
                     row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
                 }
+
+                row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
+                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                     dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
+                    
+
+                    
+                
             }
             dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
             foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
