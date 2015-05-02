@@ -39,26 +39,39 @@ namespace ABC_XYZ_analysis
             }
             comboBox1.SelectedIndex = 0;
             local.Add("name", comboBox1.SelectedIndex);
-            checkedListBox1.SetItemChecked(1, true);
+           // checkedListBox1.SetItemChecked(1, true);
 
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            local.Clear(); // чистим локальный список имен столбцов
-            for (int i = 0; i < checkedListBox1.Items.Count; i++) // перезаписываем текщий список, оставляем в нем только отмеченные столбцы
+            try
             {
-                if (checkedListBox1.GetItemChecked(i))
+                local.Clear(); // чистим локальный список имен столбцов
+                for (int i = 0; i < checkedListBox1.Items.Count; i++) // перезаписываем текщий список, оставляем в нем только отмеченные столбцы
                 {
-                    local.Add(checkedListBox1.Items[i].ToString(),i);
+                    if (checkedListBox1.GetItemChecked(i))
+                    {
+                        local.Add(checkedListBox1.Items[i].ToString(), i);
+                    }
                 }
-            }
 
-            
-            local.Add("name", comboBox1.SelectedIndex);
-            MainForm.setColumnsList(local); // отдаем список в главную форму
-            Close();   
+                local.Add("name", comboBox1.SelectedIndex);
+
+                if(local.Count == 1)
+                {
+                    throw new Exception("Отметьте нужные столбцы!");
+                }
+
+                
+                MainForm.setColumnsList(local); // отдаем список в главную форму
+                Close();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace ABC_XYZ_analysis
 {
     public partial class Form1 : Form
     {
-        private List<Product> ProductsList = new List<Product>(); // все товары
+        private List<Product> ProductsList = new List<Product>(); // все товары, основной список
         //private Dictionary<string>
 
         private Dictionary<string, string> ExcelFileSettings = new Dictionary<string, string>(); // словарь с настройками для загружаемого excel файла
@@ -27,6 +27,10 @@ namespace ABC_XYZ_analysis
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
+        /*
+         * геттреы/ сеттеры для передачи 
+         * данных между формами
+         */
         internal List<Product> getProductsList()
         {
             return ProductsList;
@@ -54,7 +58,13 @@ namespace ABC_XYZ_analysis
 
         public void LoadExclelFile()
         {
-            
+            /***
+             * метод загружает файл Excel в datagridview
+             * здесь же вызывается форма выбора листа
+             * и установление флажка "в первой строке - имена стролбцов"
+             ***/
+
+            dataGridView1.DataSource = null;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "*.xls;*.xlsx";
             ofd.Filter = "Excel Sheet(*.xlsx)|*.xlsx";
@@ -149,6 +159,8 @@ namespace ABC_XYZ_analysis
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadExclelFile();
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -167,28 +179,45 @@ namespace ABC_XYZ_analysis
             int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
             columns.Remove("name");
 
-            
-            for (int i=0; i < dataGridView1.RowCount-2; i++)
+           // bool correct = true;
+
+            try
             {
-                Product product;
-                List<double> values_analysis = new List<double>();
 
-                for (int j = 0; j < columns.Count; j++)
+                for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
-                }
-               
-                product = new Product(i, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
-                product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
-                products.Add(product); // добавляем продукт в список
-                //setProductsList(products);
-            }
+                    Product product;
+                    List<double> values_analysis = new List<double>();
 
+                    for (int j = 0; j < columns.Count; j++)
+                    {
+                        values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
+                    }
+
+                    product = new Product(i, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
+                    product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
+                    products.Add(product); // добавляем продукт в список
+
+                    //setProductsList(products);
+                }
+
+            }
+            catch {
+                MessageBox.Show("Ошибка в данных. Убедитесь, нет пустых значений ячеек!");
+            }
            // label2.Text = "Complete";
             return products;
              }
+
         private void ColumnsForAnalysis()
         {
+            /***
+             * в методе происходит работа с выбором
+             * колонок, а также данные сохраняются в 
+             * ProductsList (до этого хранились только в
+             * datagridview)
+             ***/
+ 
             setProductsList(new List<Product>()); // очищаем список продуктов
 
             ColumnsList.Clear();
@@ -206,15 +235,53 @@ namespace ABC_XYZ_analysis
         private void button1_Click(object sender, EventArgs e)
         {
             ColumnsForAnalysis();
+            EstimatesToDataGridView(ProductsList, ColumnsList);
             Form2 f2 = new Form2();
-            f2.Show();
-            f2.listView2.Items.Clear();
+            //f2.Show();
+             f2.listView2.Items.Clear();
 
         }
 
+        private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> ColumnsList)
+        {
+            /***
+             * метод удаляет из datagridview данные,
+             * который были загружены изначально и 
+             * загружает в него те данные (столбцы), которые были 
+             * отобраны. к этому этапу мы должны иметь на 100% праввильные
+             * данные для анализа
+             ***/
+
+            //dataGridView1.Rows.Clear(); 
+            dataGridView1.DataSource = null; // полность очищаем datagridview
+
+            dataGridView1.ColumnCount = 2 + ColumnsList.Count(); // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными)
+            dataGridView1.Columns[0].Name = "Номер"; // имя колонки
+            dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
+
+            for (int i = 0; i < ColumnsList.Count; i++)
+            {
+                dataGridView1.Columns[i + 2].Name = ColumnsList.Keys.ToList()[i]; // добавляем имена колонок остальных
+            }
+
+            for (int i = 0; i < ProductsList.Count; i++)
+            {
+                List<string> row = new List<string> { ProductsList[i].number.ToString(), ProductsList[i].name.ToString()}; // создаем строку для добавления в datagridview, добавляем в нее имя и номер продукта
+                
+                for (int j = 0; j < ProductsList[i].values_analysis.Count; j++)
+                {
+                    row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
+                }
+                    dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
+            }
+        }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            /***
+             * подтверждения выхода из основнй программы
+            ***/
+
             if (e.CloseReason != CloseReason.UserClosing) return;
             e.Cancel = DialogResult.Yes != MessageBox.Show("Вы действительно хотите выйти ?", "Внимание",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
