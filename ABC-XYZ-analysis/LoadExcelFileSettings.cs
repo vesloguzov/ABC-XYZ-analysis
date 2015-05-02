@@ -40,7 +40,7 @@ namespace ABC_XYZ_analysis
 
         public void LoadExcelFileSettings_Load(object sender, EventArgs e)
         {
-
+            checkBox1.Checked = true;
             Dictionary<string, string> settings = MainForm.getExcelFileSettings();
             local = MainForm.getExcelFileSettings();
             local.Add("checked_table", checked_table);

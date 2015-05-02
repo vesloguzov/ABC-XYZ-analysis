@@ -13,6 +13,31 @@ using ABC_XYZ_analysis.Properties;
 
 namespace ABC_XYZ_analysis
 {
+    /***
+     * Что можно реализовать интересного:
+     * 1. Добавить логи (открыт такой-то файл, посчитан такой-то файл, сохранен такой-то файл)
+     * 2. Сохранение в Excel формате на всех этапах (почитанный анализ, промежуточные таблицы)
+     * 3. Можно даже рисовать графики в Excel (есть библиотека)
+     * 4. Показ промежуточных расчетов
+     * 5.
+     * 6.
+     * 7.
+     * 
+     * 
+     * Что надо поправить:
+     * 1. Закрытие форм
+     * 2.
+     * 3.
+     * 
+     * 
+     * Что обязательно нужно реализовать:
+     * 1.
+     * 2.
+     * 3.
+    ***/
+
+
+
     public partial class Form1 : Form
     {
         private List<Product> ProductsList = new List<Product>(); // все товары, основной список
@@ -64,7 +89,8 @@ namespace ABC_XYZ_analysis
              * и установление флажка "в первой строке - имена стролбцов"
              ***/
 
-            dataGridView1.DataSource = null;
+            
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "*.xls;*.xlsx";
             ofd.Filter = "Excel Sheet(*.xlsx)|*.xlsx";
@@ -130,7 +156,8 @@ namespace ABC_XYZ_analysis
                         //на соответствующий лист в файле нумерация листов 
                         //начинается с нуля.
                         try
-                        {   
+                        {
+                         dataGridView1.Columns.Clear();
                         dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
                         label1.Text = "Путь к файлу: " + ofd.FileName;
                     }
@@ -159,8 +186,6 @@ namespace ABC_XYZ_analysis
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadExclelFile();
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -175,12 +200,10 @@ namespace ABC_XYZ_analysis
              *  словарь с выбранными колонками (колонки со значениями 
              *  продаж и колонка имени).
              ***/
+
             List<Product> products = new List<Product>(); // локальный список товаров
             int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
             columns.Remove("name");
-
-           // bool correct = true;
-
             try
             {
 
@@ -198,18 +221,16 @@ namespace ABC_XYZ_analysis
                     product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
                     products.Add(product); // добавляем продукт в список
 
-                    //setProductsList(products);
                 }
 
             }
             catch {
                 MessageBox.Show("Ошибка в данных. Убедитесь, нет пустых значений ячеек!");
-            }
-           // label2.Text = "Complete";
+                  }
             return products;
              }
 
-        private void ColumnsForAnalysis()
+        private Dictionary<string, int> ColumnsForAnalysis()
         {
             /***
              * в методе происходит работа с выбором
@@ -217,32 +238,43 @@ namespace ABC_XYZ_analysis
              * ProductsList (до этого хранились только в
              * datagridview)
              ***/
- 
-            setProductsList(new List<Product>()); // очищаем список продуктов
 
-            ColumnsList.Clear();
+            Dictionary<string, int> columnsList = new Dictionary<string, int>();
+
             for (int i = 0; i < dataGridView1.Columns.Count; i++) // собираем имена колонок
             {
-                ColumnsList.Add(dataGridView1.Columns[i].Name, i);
+                columnsList.Add(dataGridView1.Columns[i].Name, i);
             }
-            new ColumnsForAnalysis(this).ShowDialog();
-            ColumnsList = getColumnsList();
 
-            ProductsList = DataToDictionary(ColumnsList);
-            label2.Text = "Complete";
-        
+            setColumnsList(columnsList);
+
+            new ColumnsForAnalysis(this).ShowDialog();
+
+            columnsList = getColumnsList();
+
+            setColumnsList(new Dictionary<string,int>());
+
+            return columnsList;
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            ColumnsForAnalysis();
-            EstimatesToDataGridView(ProductsList, ColumnsList);
-            Form2 f2 = new Form2();
+            label2.Text = "";
+            setProductsList(new List<Product>());
+            setColumnsList(new Dictionary<string,int>());
+
+           ColumnsList = ColumnsForAnalysis();
+           ProductsList = DataToDictionary(ColumnsList);
+           dataGridView1.Columns.Clear();
+           EstimatesToDataGridView(ProductsList, ColumnsList);
+           label2.Text = "Complete";
+            //Form2 f2 = new Form2();
             //f2.Show();
-             f2.listView2.Items.Clear();
+             //f2.listView2.Items.Clear();
 
         }
 
-        private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> ColumnsList)
+        private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> columnsList)
         {
             /***
              * метод удаляет из datagridview данные,
@@ -252,16 +284,15 @@ namespace ABC_XYZ_analysis
              * данные для анализа
              ***/
 
-            //dataGridView1.Rows.Clear(); 
             dataGridView1.DataSource = null; // полность очищаем datagridview
 
-            dataGridView1.ColumnCount = 2 + ColumnsList.Count(); // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными)
+            dataGridView1.ColumnCount = 2 + columnsList.Count(); // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными)
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
-            for (int i = 0; i < ColumnsList.Count; i++)
+            for (int i = 0; i < columnsList.Count; i++)
             {
-                dataGridView1.Columns[i + 2].Name = ColumnsList.Keys.ToList()[i]; // добавляем имена колонок остальных
+                dataGridView1.Columns[i + 2].Name = columnsList.Keys.ToList()[i]; // добавляем имена колонок остальных
             }
 
             for (int i = 0; i < ProductsList.Count; i++)
@@ -274,6 +305,13 @@ namespace ABC_XYZ_analysis
                 }
                     dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
             }
+            dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
+            foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        
+        
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

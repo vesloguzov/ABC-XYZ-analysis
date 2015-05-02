@@ -25,7 +25,9 @@ namespace ABC_XYZ_analysis
            InitializeComponent();
 
         }
+        public Boolean state = false;
         public Dictionary<string, int> local = new Dictionary<string, int>();
+        public int NameIndex;
 
         private void ColumnsForAnalysis_Load(object sender, EventArgs e)
         {
@@ -38,6 +40,7 @@ namespace ABC_XYZ_analysis
                 comboBox1.Items.Add(local.Keys.ToList()[i]);
             }
             comboBox1.SelectedIndex = 0;
+            NameIndex = 0;
             local.Add("name", comboBox1.SelectedIndex);
            // checkedListBox1.SetItemChecked(1, true);
 
@@ -56,8 +59,8 @@ namespace ABC_XYZ_analysis
                         local.Add(checkedListBox1.Items[i].ToString(), i);
                     }
                 }
-
-                local.Add("name", comboBox1.SelectedIndex);
+                NameIndex = comboBox1.SelectedIndex;
+                local.Add("name", NameIndex);
 
                 if(local.Count == 1)
                 {
@@ -82,6 +85,20 @@ namespace ABC_XYZ_analysis
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            NameIndex = comboBox1.SelectedIndex;
+
+            checkedListBox1.SetItemChecked(NameIndex, false);
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                if (i != NameIndex)
+                {
+                    checkedListBox1.SetItemCheckState(i, (state ? CheckState.Checked : CheckState.Unchecked));
+                }
+            state = !state;
         }
         
     }
