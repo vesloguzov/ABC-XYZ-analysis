@@ -14,12 +14,14 @@ using ABC_XYZ_analysis.Properties;
 namespace ABC_XYZ_analysis
 {
     /***
+     * Не забыть:
+     * 1. Работает правильно в последовательности: "выбрать столбцы для анализа" => "Сортировать"
      * Что можно реализовать интересного:
      * 1. Добавить логи (открыт такой-то файл, посчитан такой-то файл, сохранен такой-то файл)
      * 2. Сохранение в Excel формате на всех этапах (почитанный анализ, промежуточные таблицы)
      * 3. Можно даже рисовать графики в Excel (есть библиотека)
      * 4. Показ промежуточных расчетов
-     * 5.
+     * 5. Добавить ручной ввод данных
      * 6.
      * 7.
      * 
@@ -31,7 +33,7 @@ namespace ABC_XYZ_analysis
      * 
      * 
      * Что обязательно нужно реализовать:
-     * 1.
+     * 1. Добавить алерт в форму ColumnsForAnalysis.cs при закрытии
      * 2.
      * 3.
     ***/
@@ -217,15 +219,20 @@ namespace ABC_XYZ_analysis
                         values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
                     }
 
-                    product = new Product(i, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
+                    product = new Product(i+1, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
                     product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
                     products.Add(product); // добавляем продукт в список
 
                 }
 
+                for (int i = 0; i < products.Count; i++) // добавляем к продуктам значение поля "процент"
+                {
+                    products[i].percent = Product.Share(products[i].sum_values,Product.CalculateTotalSum(products));
+                }
+
             }
             catch {
-                MessageBox.Show("Ошибка в данных. Убедитесь, нет пустых значений ячеек!");
+                MessageBox.Show("Ошибка в данных. Убедитесь, что нет пустых значений ячеек!");
                   }
             return products;
              }
@@ -234,9 +241,7 @@ namespace ABC_XYZ_analysis
         {
             /***
              * в методе происходит работа с выбором
-             * колонок, а также данные сохраняются в 
-             * ProductsList (до этого хранились только в
-             * datagridview)
+             * колонок
              ***/
 
             Dictionary<string, int> columnsList = new Dictionary<string, int>();
@@ -283,10 +288,12 @@ namespace ABC_XYZ_analysis
              * отобраны. к этому этапу мы должны иметь на 100% праввильные
              * данные для анализа
              ***/
+            dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null; // это тут должно быть обязательно!
 
-            dataGridView1.DataSource = null; // полность очищаем datagridview
 
-            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам))
+
+            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2 + 1 + 1 + 1; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа)
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
@@ -294,10 +301,13 @@ namespace ABC_XYZ_analysis
             {
                 dataGridView1.Columns[i + 2].Name = columnsList.Keys.ToList()[i]; // добавляем имена колонок остальных
             }
-            
-            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Сумма"; // добавляем колонки
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Среднее значение";
-            
+
+            // добавляем колонки
+            dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Сумма"; 
+            dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Среднее значение";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Процент";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Нарастающим итогом";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа";
 
             for (int i = 0; i < ProductsList.Count; i++)
             {
@@ -308,20 +318,52 @@ namespace ABC_XYZ_analysis
                     row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
                 }
 
+
+                Product.GrowingPercent(ProductsList); // добавляем товарам нарастающий итог
+
+                //присваиваем группы
+                if (ProductsList[i].growing_percent < 80)
+                {
+                    ProductsList[i].group = "A";
+                }
+                else
+                {
+                    if (ProductsList[i].growing_percent < 95)
+                    {
+                        ProductsList[i].group = "B";
+                    }
+                    else
+                    {
+                        ProductsList[i].group = "C";
+                    }
+                }
+
                 row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
                 row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
-                    dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
-                    
+                row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
+                row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
+                row.Add(ProductsList[i].group); // добавляем группу
 
-                    
+                    richTextBox1.Text = "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString();
+
+                dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
+           
                 
+            
             }
+
             dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
+            
             foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         
+        
+        }
+
+
+        private void ABCAnalysys() {
         
         }
 
@@ -334,6 +376,13 @@ namespace ABC_XYZ_analysis
             if (e.CloseReason != CloseReason.UserClosing) return;
             e.Cancel = DialogResult.Yes != MessageBox.Show("Вы действительно хотите выйти ?", "Внимание",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            setProductsList(Product.SortList(ProductsList)); // сортируем основной(!) лист по убыванию
+
+            EstimatesToDataGridView(ProductsList, ColumnsList);
         }
     }
 }
