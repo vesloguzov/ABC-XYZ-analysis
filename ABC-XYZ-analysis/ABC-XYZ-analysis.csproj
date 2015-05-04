@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABCtable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABCtable.Designer.cs">
+      <DependentUpon>ABCtable.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColumnsForAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABCtable.resx">
+      <DependentUpon>ABCtable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ColumnsForAnalysis.resx">
       <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>
     </EmbeddedResource>

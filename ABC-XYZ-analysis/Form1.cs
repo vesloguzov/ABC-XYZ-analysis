@@ -14,8 +14,6 @@ using ABC_XYZ_analysis.Properties;
 namespace ABC_XYZ_analysis
 {
     /***
-     * Не забыть:
-     * 1. Работает правильно в последовательности: "выбрать столбцы для анализа" => "Сортировать"
      * Что можно реализовать интересного:
      * 1. Добавить логи (открыт такой-то файл, посчитан такой-то файл, сохранен такой-то файл)
      * 2. Сохранение в Excel формате на всех этапах (почитанный анализ, промежуточные таблицы)
@@ -28,7 +26,7 @@ namespace ABC_XYZ_analysis
      * 
      * Что надо поправить:
      * 1. Закрытие форм
-     * 2.
+     * 2. Работает правильно в последовательности: "выбрать столбцы для анализа" => "Сортировать"
      * 3.
      * 
      * 
@@ -222,8 +220,8 @@ namespace ABC_XYZ_analysis
                     product = new Product(i+1, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
                     product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
                     products.Add(product); // добавляем продукт в список
-
                 }
+
 
                 for (int i = 0; i < products.Count; i++) // добавляем к продуктам значение поля "процент"
                 {
@@ -271,12 +269,12 @@ namespace ABC_XYZ_analysis
            ColumnsList = ColumnsForAnalysis();
            ProductsList = DataToDictionary(ColumnsList);
            dataGridView1.Columns.Clear();
+           ProductsList = Sort_GrowingPercent_Add(ProductsList);           
            EstimatesToDataGridView(ProductsList, ColumnsList);
            label2.Text = "Complete";
             //Form2 f2 = new Form2();
             //f2.Show();
-             //f2.listView2.Items.Clear();
-
+             //f2.listView2.Items.Clear(); 
         }
 
         private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> columnsList)
@@ -318,26 +316,6 @@ namespace ABC_XYZ_analysis
                     row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
                 }
 
-
-                Product.GrowingPercent(ProductsList); // добавляем товарам нарастающий итог
-
-                //присваиваем группы
-                if (ProductsList[i].growing_percent < 80)
-                {
-                    ProductsList[i].group = "A";
-                }
-                else
-                {
-                    if (ProductsList[i].growing_percent < 95)
-                    {
-                        ProductsList[i].group = "B";
-                    }
-                    else
-                    {
-                        ProductsList[i].group = "C";
-                    }
-                }
-
                 row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
                 row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
@@ -362,6 +340,38 @@ namespace ABC_XYZ_analysis
         
         }
 
+        private List<Product> Sort_GrowingPercent_Add(List<Product> list)
+        {
+
+            list = Product.SortList(list);
+            Product.GrowingPercent(list);
+
+            //Product.GrowingPercent(ProductsList); // добавляем товарам нарастающий итог
+
+            //setProductsList(Product.SortList(ProductsList));
+
+            //присваиваем группы
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].growing_percent < 80)
+                {
+                    list[i].group = "A";
+                }
+                else
+                {
+                    if (list[i].growing_percent < 95)
+                    {
+                        list[i].group = "B";
+                    }
+                    else
+                    {
+                        list[i].group = "C";
+                    }
+                }
+            }
+
+            return list;
+        }
 
         private void ABCAnalysys() {
         
@@ -383,6 +393,11 @@ namespace ABC_XYZ_analysis
             setProductsList(Product.SortList(ProductsList)); // сортируем основной(!) лист по убыванию
 
             EstimatesToDataGridView(ProductsList, ColumnsList);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new ABCtable(this).ShowDialog();
         }
     }
 }

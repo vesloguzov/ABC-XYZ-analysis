@@ -31,19 +31,25 @@ namespace ABC_XYZ_analysis
 
         private void ColumnsForAnalysis_Load(object sender, EventArgs e)
         {
-
+            
             local = MainForm.getColumnsList();
 
-            for (int i = 0; i < local.Count; i++)
+            try
             {
-                checkedListBox1.Items.Add(local.Keys.ToList()[i]); //добавляем имена колонок в листчекбокс
-                comboBox1.Items.Add(local.Keys.ToList()[i]);
+                for (int i = 0; i < local.Count; i++)
+                {
+                    checkedListBox1.Items.Add(local.Keys.ToList()[i]); //добавляем имена колонок в листчекбокс
+                    comboBox1.Items.Add(local.Keys.ToList()[i]);
+                }
+                comboBox1.SelectedIndex = 0;
+                NameIndex = 0;
+                local.Add("name", comboBox1.SelectedIndex);
+                // checkedListBox1.SetItemChecked(1, true);
             }
-            comboBox1.SelectedIndex = 0;
-            NameIndex = 0;
-            local.Add("name", comboBox1.SelectedIndex);
-           // checkedListBox1.SetItemChecked(1, true);
-
+            catch {
+                MessageBox.Show("Ошибка!");
+                Close();
+            }
 
         }
 
