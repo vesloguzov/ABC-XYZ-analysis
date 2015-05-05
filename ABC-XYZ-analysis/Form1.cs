@@ -26,7 +26,7 @@ namespace ABC_XYZ_analysis
      * 
      * Что надо поправить:
      * 1. Закрытие форм
-     * 2. Работает правильно в последовательности: "выбрать столбцы для анализа" => "Сортировать"
+     * 2. 
      * 3.
      * 
      * 
@@ -205,37 +205,36 @@ namespace ABC_XYZ_analysis
             
             try
                 {
-                int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
-            columns.Remove("name");
-            
+                    int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
+                    columns.Remove("name");
 
-                for (int i = 0; i < dataGridView1.RowCount; i++)
-                {
-                    Product product;
-                    List<double> values_analysis = new List<double>();
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                        {
+                            Product product;
+                            List<double> values_analysis = new List<double>();
 
-                    for (int j = 0; j < columns.Count; j++)
-                    {
-                        values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
-                    }
+                            for (int j = 0; j < columns.Count; j++)
+                                {
+                                    values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
+                                }       
 
-                    product = new Product(i+1, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
-                    product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
-                    products.Add(product); // добавляем продукт в список
+                            product = new Product(i+1, dataGridView1.Rows[i].Cells[NameColumnIndex].Value.ToString(), values_analysis); // создаем экземпляр продукта (номер, имя, значения объемов продаж)
+                            product.CalculateSumAndAverage(product); // считаем дополнительные поля для продукта 
+                            products.Add(product); // добавляем продукт в список
+                        }
+
+                    for (int i = 0; i < products.Count; i++) // добавляем к продуктам значение поля "процент"
+                        {
+                            products[i].percent = Product.Share(products[i].sum_values,Product.CalculateTotalSum(products));
+                        }
+
                 }
-
-
-                for (int i = 0; i < products.Count; i++) // добавляем к продуктам значение поля "процент"
+            catch 
                 {
-                    products[i].percent = Product.Share(products[i].sum_values,Product.CalculateTotalSum(products));
+                    MessageBox.Show("Ошибка в данных. Убедитесь, что нет пустых значений ячеек!");
                 }
-
-            }
-            catch {
-                MessageBox.Show("Ошибка в данных. Убедитесь, что нет пустых значений ячеек!");
-                  }
             return products;
-             }
+        }
 
         private Dictionary<string, int> ColumnsForAnalysis()
         {
@@ -252,13 +251,10 @@ namespace ABC_XYZ_analysis
             }
 
             setColumnsList(columnsList);
-
             new ColumnsForAnalysis(this).ShowDialog();
-
             columnsList = getColumnsList();
-
             setColumnsList(new Dictionary<string,int>());
-
+            
             return columnsList;
         }
 
@@ -267,17 +263,21 @@ namespace ABC_XYZ_analysis
             label2.Text = "";
             setProductsList(new List<Product>());
             setColumnsList(new Dictionary<string,int>());
-           
-           ColumnsList = ColumnsForAnalysis();
-           ProductsList = DataToDictionary(ColumnsList);
-           dataGridView1.Columns.Clear();
-           ProductsList = Sort_GrowingPercent_Group(ProductsList, 80, 90);
-           ProductsList = Deviation_Variation(ProductsList, 15, 30);
-           EstimatesToDataGridView(ProductsList, ColumnsList);
-           label2.Text = "Complete";
-            //Form2 f2 = new Form2();
-            //f2.Show();
-             //f2.listView2.Items.Clear(); 
+
+            if (dataGridView1.DataSource != null)//если DGV не пуста
+                {
+                    ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
+                    ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
+                    dataGridView1.Columns.Clear(); // чистим datagridview
+                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 90); // сортируем, добавляем нарастающий итог и группу ABC
+                    ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
+                    EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
+                    label2.Text = "Complete";
+                }
+            else 
+                {
+                    MessageBox.Show("Данные не загружены!");
+                }
         }
 
         private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> columnsList)
@@ -292,9 +292,8 @@ namespace ABC_XYZ_analysis
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null; // это тут должно быть обязательно!
 
-
-
-            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2 + 1 + 1 + 1 + 3; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа) + 3 для XYZ
+            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 8; // указываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа) + 3 для XYZ
+            
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
@@ -309,7 +308,6 @@ namespace ABC_XYZ_analysis
             dataGridView1.Columns[dataGridView1.ColumnCount - 6].Name = "Процент";
             dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Нарастающим итогом";
             dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Группа ABC";
-
             dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Стандартное отклонение";
             dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Коэффициент вариации";
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа XYZ";
@@ -325,17 +323,16 @@ namespace ABC_XYZ_analysis
                 }
 
                 row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
+                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
                 row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
                 row.Add(ProductsList[i].groupABC); // добавляем группу ABC
-                
-                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].standard_deviation.ToString());// добавляем в строку стендартное отклонение
                 row.Add(ProductsList[i].coefficient_of_variation.ToString());// добавляем в строку коэфф вариации
                 row.Add(ProductsList[i].groupXYZ);// добавляем в строку группу XYZ
 
 
-                    richTextBox1.Text = "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString();
+                richTextBox1.Text = "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString();
 
                 dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
            
@@ -347,14 +344,20 @@ namespace ABC_XYZ_analysis
             
             foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
             {
-               // column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         
         
         }
 
-        private List<Product> Deviation_Variation(List<Product> list, int value1, int value2)
+        private List<Product> Deviation_Variation_GroupXYZ(List<Product> list, int value1, int value2)
         {
+            /***
+             * метод всем товарам считает стандартное отклонения,
+             * считает коэффициент вариации,
+             * присваивает группу XYZ
+            ***/
+
             list = Product.StandartDeviation(list); // присваиваем товарам стандартное отклонение
             list = Product.CoefficientOfVariation(list); // присваиваем коэффициент вариации
 
@@ -380,11 +383,17 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
-        private List<Product> Sort_GrowingPercent_Group(List<Product> list, int value1, int value2)
+        private List<Product> Sort_GrowingPercent_GroupABC(List<Product> list, int value1, int value2)
         {
+            /***
+             * метод сортирует лист по процентам,
+             * присваевает нарастающий итог,
+             * назначает группу ABC
+            ***/
 
             list = Product.SortList(list, "percent"); // сортируем список товаров
-            Product.GrowingPercent(list); // отсортированному списку присваеваем нарастающий итог
+            Product.GrowingPercent(list); // отсортированному списку присваиваем нарастающий итог
+
             //присваиваем группы
             for (int i = 0; i < list.Count; i++)
             {
@@ -408,7 +417,7 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
-        private void ABCAnalysys() {
+        private void ABCAnalysis() {
         
             //
 

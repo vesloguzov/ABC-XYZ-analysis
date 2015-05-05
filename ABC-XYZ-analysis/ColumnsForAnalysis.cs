@@ -31,9 +31,7 @@ namespace ABC_XYZ_analysis
 
         private void ColumnsForAnalysis_Load(object sender, EventArgs e)
         {
-            
             local = MainForm.getColumnsList();
-
             try
             {
                 for (int i = 0; i < local.Count; i++)
