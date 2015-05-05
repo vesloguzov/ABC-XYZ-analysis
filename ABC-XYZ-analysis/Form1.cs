@@ -271,7 +271,8 @@ namespace ABC_XYZ_analysis
            ColumnsList = ColumnsForAnalysis();
            ProductsList = DataToDictionary(ColumnsList);
            dataGridView1.Columns.Clear();
-           ProductsList = Sort_GrowingPercent_Group(ProductsList);           
+           ProductsList = Sort_GrowingPercent_Group(ProductsList);
+           ProductsList = Deviation_Variation(ProductsList);
            EstimatesToDataGridView(ProductsList, ColumnsList);
            label2.Text = "Complete";
             //Form2 f2 = new Form2();
@@ -293,7 +294,7 @@ namespace ABC_XYZ_analysis
 
 
 
-            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2 + 1 + 1 + 1; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа)
+            dataGridView1.ColumnCount = 2 + columnsList.Count() + 2 + 1 + 1 + 1 + 3; // уазываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа) + 3 для XYZ
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
@@ -303,11 +304,15 @@ namespace ABC_XYZ_analysis
             }
 
             // добавляем колонки
-            dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Сумма"; 
-            dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Среднее значение";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Процент";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Нарастающим итогом";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 8].Name = "Сумма"; 
+            dataGridView1.Columns[dataGridView1.ColumnCount - 7].Name = "Среднее значение";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 6].Name = "Процент";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Нарастающим итогом";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Группа ABC";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Стандартное отклонение";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Коэффициент вариации";
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа XYZ";
+
 
             for (int i = 0; i < ProductsList.Count; i++)
             {
@@ -322,7 +327,12 @@ namespace ABC_XYZ_analysis
                 row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
                 row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
-                row.Add(ProductsList[i].group); // добавляем группу
+                row.Add(ProductsList[i].groupABC); // добавляем группу ABC
+
+                row.Add(ProductsList[i].standard_deviation.ToString());// добавляем в строку стендартное отклонение
+                row.Add(ProductsList[i].coefficient_of_variation.ToString());// добавляем в строку коэфф вариации
+                row.Add(ProductsList[i].groupXYZ);// добавляем в строку группу XYZ
+
 
                     richTextBox1.Text = "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString();
 
@@ -342,6 +352,31 @@ namespace ABC_XYZ_analysis
         
         }
 
+        private List<Product> Deviation_Variation(List<Product> list)
+        {
+            list = Product.StandartDeviation(list);
+            list = Product.CoefficientOfVariation(list);
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].coefficient_of_variation < 15)
+                {
+                    list[i].groupXYZ = "X";
+                }
+                else
+                {
+                    if (list[i].coefficient_of_variation < 30)
+                    {
+                        list[i].groupXYZ = "Y";
+                    }
+                    else
+                    {
+                        list[i].groupXYZ = "Z";
+                    }
+                }
+            }
+            return list;
+        }
+
         private List<Product> Sort_GrowingPercent_Group(List<Product> list)
         {
 
@@ -352,17 +387,17 @@ namespace ABC_XYZ_analysis
             {
                 if (list[i].growing_percent < 80)
                 {
-                    list[i].group = "A";
+                    list[i].groupABC = "A";
                 }
                 else
                 {
                     if (list[i].growing_percent < 95)
                     {
-                        list[i].group = "B";
+                        list[i].groupABC = "B";
                     }
                     else
                     {
-                        list[i].group = "C";
+                        list[i].groupABC = "C";
                     }
                 }
             }
@@ -390,6 +425,11 @@ namespace ABC_XYZ_analysis
         private void button2_Click(object sender, EventArgs e)
         {
             new ABCtable(this).ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new XYZTable(this).ShowDialog();
         }
     }
 }

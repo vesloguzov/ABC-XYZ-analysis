@@ -42,15 +42,15 @@ namespace ABC_XYZ_analysis
 
             for (int i = 0; i < local.Count; i++)
             {
-                if (local[i].group == "A")
+                if (local[i].groupABC == "A")
                 {
                     listBoxGroupA.Items.Add(local[i].number.ToString()+". "+local[i].name);
                 }
-                if (local[i].group == "B")
+                if (local[i].groupABC == "B")
                 {
                     listBoxGroupB.Items.Add(local[i].number.ToString() + ". " + local[i].name);
                 }
-                if (local[i].group == "C")
+                if (local[i].groupABC == "C")
                 {
                     listBoxGroupC.Items.Add(local[i].number.ToString() + ". " + local[i].name);
                 }

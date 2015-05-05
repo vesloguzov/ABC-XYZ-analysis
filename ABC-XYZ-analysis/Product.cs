@@ -18,7 +18,11 @@ namespace ABC_XYZ_analysis
         public double average_value; // среднее значение
         public double percent; // процент от общей доли
         public double growing_percent; // процент нарастающим итогом
-        public string group; // группа
+        public double standard_deviation; // стандартное отконение
+        public double coefficient_of_variation; // коэффициент вариации
+        public string groupABC; // группа ABC
+        public string groupXYZ; // группа XYZ
+
 
         /***
          * Конструктор класса
@@ -109,6 +113,30 @@ namespace ABC_XYZ_analysis
              return products;
         }
 
+        public static List<Product> StandartDeviation(List<Product> products)
+        {
+            double param1 = 0;
+            for (int i = 0; i < products.Count; i++) 
+            {
+                param1 = 0;
+                for (int j = 0; j < products[i].values_analysis.Count; j++)
+                {
+                    param1 = param1 + Math.Pow((products[i].values_analysis[j] - products[i].average_value), 2);
+                }
+                param1 = param1 / 3;
+                param1 = Math.Pow(param1, 0.5);
+                products[i].standard_deviation = param1;
+            }
+            return products;
+        }
+        public static List<Product> CoefficientOfVariation(List<Product> products)
+        {
+            for (int i = 0; i < products.Count; i++) 
+            {
+                products[i].coefficient_of_variation = (products[i].standard_deviation / products[i].average_value) * 100;
+            }
+            return products;
+        }
     }
 
 }
