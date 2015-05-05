@@ -372,6 +372,8 @@ namespace ABC_XYZ_analysis
 
         private void ABCAnalysys() {
         
+            //хуй
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
