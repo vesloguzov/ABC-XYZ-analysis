@@ -77,14 +77,25 @@ namespace ABC_XYZ_analysis
             return percent;
         }
 
-        public static List<Product> SortList(List<Product> UnsortedList)
+        public static List<Product> SortList(List<Product> UnsortedList, string param)
         { 
             /***
              * метод сортирует список по процентам, по убыванию
              * возвращает отсортированный список
              ***/
+          //  string prop = typeof(Product).GetProperty(propertyName).ToString();
+            
+           // int value = (int)prop.GetValue(Product, null);
+
             List<Product> SortedList = new List<Product>();
-            SortedList = UnsortedList.OrderByDescending(obj => obj.percent).ToList();
+            if (param == "percent")
+            {
+                SortedList = UnsortedList.OrderByDescending(obj => obj.percent).ToList();
+            }
+            if (param == "number") 
+            {
+                SortedList = UnsortedList.OrderBy(obj => obj.number).ToList();
+            }
             return SortedList;
         }
 

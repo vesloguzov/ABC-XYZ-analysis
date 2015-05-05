@@ -17,6 +17,16 @@ namespace ABC_XYZ_analysis
         public ABCtable()
         {
             InitializeComponent();
+            /*
+            Opacity = 0;
+            Timer timer = new Timer();
+            timer.Tick += new EventHandler((sender, e) =>
+            {
+                if ((Opacity += 0.05d) == 1) timer.Stop();
+            });
+            timer.Interval = 10;
+            timer.Start();
+             */
         }
 
         public ABCtable(Form1 MainForm)
@@ -28,7 +38,7 @@ namespace ABC_XYZ_analysis
         private void ABCtable_Load(object sender, EventArgs e)
         {
             List<Product> local = MainForm.getProductsList();
-            //local = Product.SortList();
+            local = Product.SortList(local, "number");
 
             for (int i = 0; i < local.Count; i++)
             {

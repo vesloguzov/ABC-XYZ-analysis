@@ -23,9 +23,9 @@ namespace ABC_XYZ_analysis
 
         public LoadExcelFileSettings(Form1 MainForm)
         {
-        this.MainForm = MainForm;
+           this.MainForm = MainForm;
            InitializeComponent();
-           //this.FormClosing += new FormClosingEventHandler(LoadExcelFileSettings_FormClosing);
+           this.FormClosing += new FormClosingEventHandler(LoadExcelFileSettings_FormClosing);
           }
 
         string checked_table = "0";
@@ -73,13 +73,25 @@ namespace ABC_XYZ_analysis
             local["checked_table"] = checked_table;
             local["checked_heads"] = checked_heads;
             MainForm.setExcelFileSettings(local);
-            Close();
+            Dispose();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
+        
+        private void LoadExcelFileSettings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+               if (e.CloseReason == CloseReason.UserClosing)
+                    e.Cancel = true;
+            
+           //throw new Exception("Загрузка была прервана!");
+         
+        }
+        
+
         /*
         private void LoadExcelFileSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -91,7 +103,7 @@ namespace ABC_XYZ_analysis
            {
                local["checked_table"] = "-1";
            }
-        }
-         */
+        }*/
+         
     }
 }

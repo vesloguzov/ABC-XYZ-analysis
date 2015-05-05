@@ -202,10 +202,12 @@ namespace ABC_XYZ_analysis
              ***/
 
             List<Product> products = new List<Product>(); // локальный список товаров
-            int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
-            columns.Remove("name");
+            
             try
-            {
+                {
+                int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
+            columns.Remove("name");
+            
 
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
@@ -265,11 +267,11 @@ namespace ABC_XYZ_analysis
             label2.Text = "";
             setProductsList(new List<Product>());
             setColumnsList(new Dictionary<string,int>());
-
+           
            ColumnsList = ColumnsForAnalysis();
            ProductsList = DataToDictionary(ColumnsList);
            dataGridView1.Columns.Clear();
-           ProductsList = Sort_GrowingPercent_Add(ProductsList);           
+           ProductsList = Sort_GrowingPercent_Group(ProductsList);           
            EstimatesToDataGridView(ProductsList, ColumnsList);
            label2.Text = "Complete";
             //Form2 f2 = new Form2();
@@ -340,16 +342,11 @@ namespace ABC_XYZ_analysis
         
         }
 
-        private List<Product> Sort_GrowingPercent_Add(List<Product> list)
+        private List<Product> Sort_GrowingPercent_Group(List<Product> list)
         {
 
-            list = Product.SortList(list);
-            Product.GrowingPercent(list);
-
-            //Product.GrowingPercent(ProductsList); // добавляем товарам нарастающий итог
-
-            //setProductsList(Product.SortList(ProductsList));
-
+            list = Product.SortList(list, "percent"); // сортируем список товаров
+            Product.GrowingPercent(list); // отсортированному списку присваеваем нарастающий итог
             //присваиваем группы
             for (int i = 0; i < list.Count; i++)
             {
@@ -386,13 +383,6 @@ namespace ABC_XYZ_analysis
             if (e.CloseReason != CloseReason.UserClosing) return;
             e.Cancel = DialogResult.Yes != MessageBox.Show("Вы действительно хотите выйти ?", "Внимание",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            setProductsList(Product.SortList(ProductsList)); // сортируем основной(!) лист по убыванию
-
-            EstimatesToDataGridView(ProductsList, ColumnsList);
         }
 
         private void button2_Click(object sender, EventArgs e)
