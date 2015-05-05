@@ -92,8 +92,8 @@ namespace ABC_XYZ_analysis
             
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = "*.xls;*.xlsx";
-            ofd.Filter = "Excel Sheet(*.xlsx)|*.xlsx";
+            //ofd.DefaultExt = "*.xls;*.xlsx";
+            ofd.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
             ofd.Title = "Выберите документ для загрузки данных";
 
             if (ofd.ShowDialog() == DialogResult.OK)
