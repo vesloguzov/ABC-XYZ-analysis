@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABC+XYZtable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABC+XYZtable.Designer.cs">
+      <DependentUpon>ABC+XYZtable.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABCtable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="XYZTable.Designer.cs">
       <DependentUpon>XYZTable.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ABC+XYZtable.resx">
+      <DependentUpon>ABC+XYZtable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABCtable.resx">
       <DependentUpon>ABCtable.cs</DependentUpon>
     </EmbeddedResource>

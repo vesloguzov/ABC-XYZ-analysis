@@ -99,7 +99,7 @@
             this.Controls.Add(this.listBoxGroupY);
             this.Controls.Add(this.listBoxGroupX);
             this.Name = "XYZTable";
-            this.Text = "XYZTable";
+            this.Text = "Таблица XYZ-анализа";
             this.Load += new System.EventHandler(this.XYZTable_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

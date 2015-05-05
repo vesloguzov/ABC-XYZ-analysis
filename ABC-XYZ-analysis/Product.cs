@@ -105,6 +105,11 @@ namespace ABC_XYZ_analysis
 
         public static List<Product> GrowingPercent(List<Product> products)
         {
+            /***
+             * метод присваивает нарастающий итог
+             * список products на  входе должен быть уже
+             * отсортирован
+            ***/
             products[0].growing_percent = products[0].percent;
              for (int i = 1; i < products.Count; i++) // добавляем к продуктам значение поля "нарастающим итогом"
                 {
@@ -115,25 +120,31 @@ namespace ABC_XYZ_analysis
 
         public static List<Product> StandartDeviation(List<Product> products)
         {
-            double param1 = 0;
+            /***
+             * метод присваивает продуктам стандартное отклонение
+            ***/
+            double param = 0; // тут промежуточные расчеты
             for (int i = 0; i < products.Count; i++) 
             {
-                param1 = 0;
+                param = 0;
                 for (int j = 0; j < products[i].values_analysis.Count; j++)
                 {
-                    param1 = param1 + Math.Pow((products[i].values_analysis[j] - products[i].average_value), 2);
+                    param = param + Math.Pow((products[i].values_analysis[j] - products[i].average_value), 2); // сумма квадратов разности
                 }
-                param1 = param1 / 3;
-                param1 = Math.Pow(param1, 0.5);
-                products[i].standard_deviation = param1;
+                param = param / products[i].values_analysis.Count; // делим на количество периодов 
+                param = Math.Pow(param, 0.5); // берем от этого всего корень
+                products[i].standard_deviation = param;
             }
             return products;
         }
         public static List<Product> CoefficientOfVariation(List<Product> products)
         {
+            /***
+              * метод присваивает продуктам коэффициент вариации
+            ***/
             for (int i = 0; i < products.Count; i++) 
             {
-                products[i].coefficient_of_variation = (products[i].standard_deviation / products[i].average_value) * 100;
+                products[i].coefficient_of_variation = (products[i].standard_deviation / products[i].average_value) * 100; // стандартное отклонение делить на среднее значение * 100
             }
             return products;
         }

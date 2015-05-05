@@ -271,8 +271,8 @@ namespace ABC_XYZ_analysis
            ColumnsList = ColumnsForAnalysis();
            ProductsList = DataToDictionary(ColumnsList);
            dataGridView1.Columns.Clear();
-           ProductsList = Sort_GrowingPercent_Group(ProductsList);
-           ProductsList = Deviation_Variation(ProductsList);
+           ProductsList = Sort_GrowingPercent_Group(ProductsList, 80, 90);
+           ProductsList = Deviation_Variation(ProductsList, 15, 30);
            EstimatesToDataGridView(ProductsList, ColumnsList);
            label2.Text = "Complete";
             //Form2 f2 = new Form2();
@@ -309,6 +309,7 @@ namespace ABC_XYZ_analysis
             dataGridView1.Columns[dataGridView1.ColumnCount - 6].Name = "Процент";
             dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Нарастающим итогом";
             dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Группа ABC";
+
             dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Стандартное отклонение";
             dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Коэффициент вариации";
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа XYZ";
@@ -324,11 +325,11 @@ namespace ABC_XYZ_analysis
                 }
 
                 row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
-                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
                 row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
                 row.Add(ProductsList[i].groupABC); // добавляем группу ABC
-
+                
+                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
                 row.Add(ProductsList[i].standard_deviation.ToString());// добавляем в строку стендартное отклонение
                 row.Add(ProductsList[i].coefficient_of_variation.ToString());// добавляем в строку коэфф вариации
                 row.Add(ProductsList[i].groupXYZ);// добавляем в строку группу XYZ
@@ -346,25 +347,27 @@ namespace ABC_XYZ_analysis
             
             foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
             {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+               // column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         
         
         }
 
-        private List<Product> Deviation_Variation(List<Product> list)
+        private List<Product> Deviation_Variation(List<Product> list, int value1, int value2)
         {
-            list = Product.StandartDeviation(list);
-            list = Product.CoefficientOfVariation(list);
+            list = Product.StandartDeviation(list); // присваиваем товарам стандартное отклонение
+            list = Product.CoefficientOfVariation(list); // присваиваем коэффициент вариации
+
+            // назначаем группы
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].coefficient_of_variation < 15)
+                if (list[i].coefficient_of_variation < value1)
                 {
                     list[i].groupXYZ = "X";
                 }
                 else
                 {
-                    if (list[i].coefficient_of_variation < 30)
+                    if (list[i].coefficient_of_variation < value2)
                     {
                         list[i].groupXYZ = "Y";
                     }
@@ -377,7 +380,7 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
-        private List<Product> Sort_GrowingPercent_Group(List<Product> list)
+        private List<Product> Sort_GrowingPercent_Group(List<Product> list, int value1, int value2)
         {
 
             list = Product.SortList(list, "percent"); // сортируем список товаров
@@ -385,13 +388,13 @@ namespace ABC_XYZ_analysis
             //присваиваем группы
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].growing_percent < 80)
+                if (list[i].growing_percent < value1)
                 {
                     list[i].groupABC = "A";
                 }
                 else
                 {
-                    if (list[i].growing_percent < 95)
+                    if (list[i].growing_percent < value2)
                     {
                         list[i].groupABC = "B";
                     }
@@ -407,7 +410,7 @@ namespace ABC_XYZ_analysis
 
         private void ABCAnalysys() {
         
-            //хуй
+            //
 
         }
 
@@ -430,6 +433,11 @@ namespace ABC_XYZ_analysis
         private void button3_Click(object sender, EventArgs e)
         {
             new XYZTable(this).ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new ABC_XYZtable(this).ShowDialog();
         }
     }
 }
