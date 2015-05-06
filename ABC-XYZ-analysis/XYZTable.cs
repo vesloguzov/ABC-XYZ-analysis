@@ -45,5 +45,15 @@ namespace ABC_XYZ_analysis
                 }
             }
         }
+
+        private void показатьРасчетнуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void показатьРасчетнуюТаблицуToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            new CalculationXYZtable(MainForm).ShowDialog();
+        }
     }
 }

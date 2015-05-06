@@ -65,6 +65,18 @@
     <Compile Include="ABCtable.Designer.cs">
       <DependentUpon>ABCtable.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalculationABCtabte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalculationABCtabte.Designer.cs">
+      <DependentUpon>CalculationABCtabte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalculationXYZtable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalculationXYZtable.Designer.cs">
+      <DependentUpon>CalculationXYZtable.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColumnsForAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +115,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABCtable.resx">
       <DependentUpon>ABCtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalculationABCtabte.resx">
+      <DependentUpon>CalculationABCtabte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalculationXYZtable.resx">
+      <DependentUpon>CalculationXYZtable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ColumnsForAnalysis.resx">
       <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>

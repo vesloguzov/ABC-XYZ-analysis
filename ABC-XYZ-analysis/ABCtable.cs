@@ -57,5 +57,20 @@ namespace ABC_XYZ_analysis
             }
 
         }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void показатьПромеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new CalculationABCtabte(MainForm).ShowDialog();
+        }
     }
 }

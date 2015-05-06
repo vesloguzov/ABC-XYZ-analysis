@@ -51,6 +51,7 @@ namespace ABC_XYZ_analysis
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+
         }
         /*
          * геттреы/ сеттеры для передачи 
@@ -269,7 +270,7 @@ namespace ABC_XYZ_analysis
                     ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
                     ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
                     dataGridView1.Columns.Clear(); // чистим datagridview
-                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 90); // сортируем, добавляем нарастающий итог и группу ABC
+                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
                     ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
                     EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                     label2.Text = "Complete";
@@ -447,6 +448,11 @@ namespace ABC_XYZ_analysis
         private void button4_Click(object sender, EventArgs e)
         {
             new ABC_XYZtable(this).ShowDialog();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

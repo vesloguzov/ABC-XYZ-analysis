@@ -52,7 +52,7 @@ namespace ABC_XYZ_analysis
                     sum = sum + values_analysis[i]; // сумма значений объемов продаж за отрезки
                 }
             product.sum_values = sum;
-            average = Math.Round((sum / product.values_analysis.Count), 3); // среднее значение
+            average = Math.Round((sum / product.values_analysis.Count), 5); // среднее значение
             product.average_value = average;
         }
 
@@ -77,7 +77,7 @@ namespace ABC_XYZ_analysis
              * взвращает процент
              ***/
             double percent = (value / total) * 100;
-            percent = Math.Round(percent, 3);
+            percent = Math.Round(percent, 5);
             return percent;
         }
 
