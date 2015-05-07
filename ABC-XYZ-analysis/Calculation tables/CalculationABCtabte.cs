@@ -75,13 +75,13 @@ namespace ABC_XYZ_analysis
 
             }
 
-            dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
+           /* dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
 
             foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
+            */
 
         }
 
