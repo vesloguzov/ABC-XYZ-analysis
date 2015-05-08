@@ -160,6 +160,7 @@ namespace ABC_XYZ_analysis
                         {
                          dataGridView1.Columns.Clear();
                         dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
+                        richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
                         label1.Text = "Путь к файлу: " + ofd.FileName;
                     }
                     catch
@@ -191,7 +192,7 @@ namespace ABC_XYZ_analysis
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+          
         }
         private List<Product> DataToDictionary(Dictionary<string, int> columns)
         {
@@ -271,12 +272,16 @@ namespace ABC_XYZ_analysis
                     ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
                     dataGridView1.Columns.Clear(); // чистим datagridview
                     ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
+                    richTextBox1.Text += "Проведен ABC-анализ" + "\n";
                     ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
+                    richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
                     EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
+                    richTextBox1.Text += "Анализы совмещены!" + "\n";
                     label2.Text = "Complete";
                 }
             else 
                 {
+                    richTextBox1.Text += "Ошибка!" + "\n";
                     MessageBox.Show("Данные не загружены!");
                 }
         }
@@ -333,13 +338,15 @@ namespace ABC_XYZ_analysis
                 row.Add(ProductsList[i].groupXYZ);// добавляем в строку группу XYZ
 
 
-                richTextBox1.Text = "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString();
+                
 
                 dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
            
                 
             
             }
+
+            richTextBox1.Text += "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString()+"\n";
 
             dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
             
@@ -418,10 +425,71 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
-        private void ABCAnalysis() {
-        
-            //
+        private void CleanNullRowsColumns()
+        {
+            /***
+             * метод удаляет из dataGridView
+             * пустые строки, столбцы.
+             * Если среди оставщихся клеток есть пустые,
+             * в записывается значение "0"
+            ***/
 
+            //цикл удаляет пустые строки
+            for(int i = 0; i<dataGridView1.Rows.Count; i++)
+            {
+                double param =0;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                {
+                    if (dataGridView1.Rows[i].Cells[j].Value.ToString() != "")
+                    {
+                        param = 1;
+                        break;
+                    }
+                }
+                if (param == 0)
+                {
+                    dataGridView1.Rows.RemoveAt(i);
+                    i = 0;
+                }
+                
+           }
+
+            // цикл удаляет пустые столбцы
+            for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            {
+                double param = 0;
+                for (int j = 0; j < dataGridView1.Rows.Count; j++)
+                {
+                    if (dataGridView1.Rows[j].Cells[i].Value.ToString() != "")
+                    {
+                        param = 1;
+                        break;
+                    }
+                }
+                if (param == 0)
+                {
+                    dataGridView1.Columns.RemoveAt(i);
+                    i = 0;
+                }
+ 
+            }
+
+            //цикл вставляет нули в пустые клетки
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                {
+                    if (dataGridView1.Rows[i].Cells[j].Value.ToString() == "")
+                    {
+                        dataGridView1.Rows[i].Cells[j].Value = "0";
+                    }
+                }
+            }
+        }
+
+        private List<Product> ABCAnalysis(List<Product> products, Dictionary<string,int> columns) {
+            //
+            return products;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -453,6 +521,12 @@ namespace ABC_XYZ_analysis
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            CleanNullRowsColumns();
+            richTextBox1.Text += "Удалены пустые стоки и столбцы"+"\n";
         }
     }
 }
