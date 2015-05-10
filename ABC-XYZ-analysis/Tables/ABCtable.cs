@@ -41,10 +41,11 @@ namespace ABC_XYZ_analysis
 
         private void ABCtable_Load(object sender, EventArgs e)
         {
-            List<Product> local = MainForm.getProductsList();
-            local = Product.SortList(local, "number");
+            List<Product> local = MainForm.getProductsList();// получаем список продуктов из главной формы
             
-            for (int i = 0; i < local.Count; i++)
+            local = Product.SortList(local, "number");// сортируем по номеру
+
+            for (int i = 0; i < local.Count; i++)// каждый из продктов, в зависимости от группы, запихиваем в определенное окошко
             {
                 if (local[i].groupABC == "A")
                 {
@@ -94,14 +95,16 @@ namespace ABC_XYZ_analysis
  
                     ExcelApp.Columns.ColumnWidth = 25;
 
-
+                    
                     ExcelApp.Cells[1, 1] = "Группа A";
+                    ExcelApp.Cells[1, 1].Interior.Color = Color.Silver;
                     for (int i = 1; i < listBoxGroupA.Items.Count+1; i++)
                     {
                         ExcelApp.Cells[i+1,1] = listBoxGroupA.Items[i-1].ToString();
                     }
                     
                     ExcelApp.Cells[1, 2] = "Группа B";
+                    ExcelApp.Cells[1, 2].Interior.Color = Color.Silver;
                     for (int i = 1; i < listBoxGroupB.Items.Count+1; i++)
                     {
                         ExcelApp.Cells[i + 1,2] = listBoxGroupB.Items[i-1];
@@ -109,6 +112,7 @@ namespace ABC_XYZ_analysis
 
 
                     ExcelApp.Cells[1, 3] = "Группа C";
+                    ExcelApp.Cells[1, 3].Interior.Color = Color.Silver;
                     for (int i = 1; i < listBoxGroupC.Items.Count+1; i++)
                     {
                         ExcelApp.Cells[i + 1,3] = listBoxGroupC.Items[i-1];

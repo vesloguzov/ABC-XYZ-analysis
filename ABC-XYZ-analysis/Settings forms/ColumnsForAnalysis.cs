@@ -23,15 +23,16 @@ namespace ABC_XYZ_analysis
         {
         this.MainForm = MainForm;
            InitializeComponent();
+           this.FormClosing += new FormClosingEventHandler(ColumnsForAnalysis_FormClosing);
 
         }
         public Boolean state = false;
-        public Dictionary<string, int> local = new Dictionary<string, int>();
-        public int NameIndex;
+        public Dictionary<string, int> local = new Dictionary<string, int>(); // локальный словарь колонок
+        public int NameIndex; // Индекс столбца с именами
 
         private void ColumnsForAnalysis_Load(object sender, EventArgs e)
         {
-            local = MainForm.getColumnsList();
+            local = MainForm.getColumnsList(); // получаем колонки
             try
             {
                 for (int i = 0; i < local.Count; i++)
@@ -39,9 +40,9 @@ namespace ABC_XYZ_analysis
                     checkedListBox1.Items.Add(local.Keys.ToList()[i]); //добавляем имена колонок в листчекбокс
                     comboBox1.Items.Add(local.Keys.ToList()[i]);
                 }
-                comboBox1.SelectedIndex = 0;
+                comboBox1.SelectedIndex = 0; // по умолчанию  выбираем нулевой элемент
                 NameIndex = 0;
-                local.Add("name", comboBox1.SelectedIndex);
+                local.Add("name", comboBox1.SelectedIndex); // записывеам в словарь индекс столбца с именами
                 // checkedListBox1.SetItemChecked(1, true);
             }
             catch {
@@ -63,8 +64,8 @@ namespace ABC_XYZ_analysis
                         local.Add(checkedListBox1.Items[i].ToString(), i);
                     }
                 }
-                NameIndex = comboBox1.SelectedIndex;
-                local.Add("name", NameIndex);
+                NameIndex = comboBox1.SelectedIndex; // получаем индекс столбца с именами
+                local.Add("name", NameIndex); // записывеам в словарь индекс столбца с именами
 
                 if(local.Count == 1)
                 {
@@ -72,8 +73,8 @@ namespace ABC_XYZ_analysis
                 }
 
                 
-                MainForm.setColumnsList(local); // отдаем список в главную форму
-                Close();
+                MainForm.setColumnsList(local); // отдаем словарь в главную форму
+                Dispose();
             }
             catch(Exception exception)
             {
@@ -93,17 +94,35 @@ namespace ABC_XYZ_analysis
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NameIndex = comboBox1.SelectedIndex;
+            /***
+             * отмечаем/снимаем значения чекбоксов всех,
+             * кроме того, который выбран как столбец имен
+            ***/
 
-            checkedListBox1.SetItemChecked(NameIndex, false);
+            NameIndex = comboBox1.SelectedIndex; // получаем индекс столбца с именами
 
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                if (i != NameIndex)
+            checkedListBox1.SetItemChecked(NameIndex, false); // убираем все галочки
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++) // идем по всем элементам checkedListBoxа
+                if (i != NameIndex) // если это не столбец с именами
                 {
-                    checkedListBox1.SetItemCheckState(i, (state ? CheckState.Checked : CheckState.Unchecked));
+                    checkedListBox1.SetItemCheckState(i, (state ? CheckState.Checked : CheckState.Unchecked)); // отмечаем или снимаем
                 }
             state = !state;
         }
+
+        private void ColumnsForAnalysis_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing) return;
+            //  DialogResult ans
+            //  MessageBox.Show("No");
+            e.Cancel = DialogResult.Yes != MessageBox.Show("Прервать операцию?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (e.Cancel == false)
+            {
+                // если операция прервана, отдаем пустой словарь
+                MainForm.setColumnsList(new Dictionary<string,int>());
+            }
+        }  
         
     }
 }

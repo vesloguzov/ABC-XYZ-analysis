@@ -83,18 +83,6 @@ namespace ABC_XYZ_analysis
         
         private void LoadExcelFileSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-               if (e.CloseReason == CloseReason.UserClosing)
-                    e.Cancel = true;
-            
-           //throw new Exception("Загрузка была прервана!");
-         
-        }
-        
-
-        /*
-        private void LoadExcelFileSettings_FormClosing(object sender, FormClosingEventArgs e)
-        {
             if (e.CloseReason != CloseReason.UserClosing) return;
           //  DialogResult ans
           //  MessageBox.Show("No");
@@ -103,7 +91,6 @@ namespace ABC_XYZ_analysis
            {
                local["checked_table"] = "-1";
            }
-        }*/
-         
+        }      
     }
 }

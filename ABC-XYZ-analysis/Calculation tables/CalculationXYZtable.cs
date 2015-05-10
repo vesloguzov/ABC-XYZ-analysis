@@ -84,18 +84,20 @@ namespace ABC_XYZ_analysis
 
             dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
 
-            /*foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
+
+            foreach (DataGridViewColumn column in dataGridView1.Columns) // запрещение сортироки (клик на имя столбца)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }*/
+            }
 
 
         }
         private void CalculationXYZtable_Load(object sender, EventArgs e)
         {
-            List<Product> local_products = MainForm.getProductsList();
-            Dictionary<string, int> local_columns = MainForm.getColumnsList();
-            EstimatesToDataGridView(local_products, local_columns);
+            List<Product> local_products = MainForm.getProductsList();// получаем список продуктов из главной формы
+
+            Dictionary<string, int> local_columns = MainForm.getColumnsList();// получаем словарь колонок из главной формы
+            EstimatesToDataGridView(local_products, local_columns); // рисуем в DataGridView
         }
 
         private void ExportToExcel()

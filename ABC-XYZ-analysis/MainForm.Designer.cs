@@ -33,25 +33,25 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.comboBox__delete_column = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.New_column_name = new System.Windows.Forms.TextBox();
-            this.comboBox__delete_column = new System.Windows.Forms.ComboBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -86,16 +86,30 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // закрытьToolStripMenuItem
+            // 
+            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.закрытьToolStripMenuItem.Text = "Закрыть";
+            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // dataGridView1
             // 
@@ -147,6 +161,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Удалить столбец";
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(38, 66);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 13;
+            this.button7.Text = "Удалить";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // comboBox__delete_column
+            // 
+            this.comboBox__delete_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox__delete_column.FormattingEnabled = true;
+            this.comboBox__delete_column.Location = new System.Drawing.Point(6, 23);
+            this.comboBox__delete_column.Name = "comboBox__delete_column";
+            this.comboBox__delete_column.Size = new System.Drawing.Size(146, 21);
+            this.comboBox__delete_column.TabIndex = 12;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -183,25 +216,6 @@
             this.New_column_name.Size = new System.Drawing.Size(100, 20);
             this.New_column_name.TabIndex = 11;
             // 
-            // comboBox__delete_column
-            // 
-            this.comboBox__delete_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox__delete_column.FormattingEnabled = true;
-            this.comboBox__delete_column.Location = new System.Drawing.Point(6, 23);
-            this.comboBox__delete_column.Name = "comboBox__delete_column";
-            this.comboBox__delete_column.Size = new System.Drawing.Size(146, 21);
-            this.comboBox__delete_column.TabIndex = 12;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(38, 66);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 13;
-            this.button7.Text = "Удалить";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(6, 16);
@@ -219,13 +233,6 @@
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "Имя столбца";
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // groupBox2
             // 
@@ -262,18 +269,11 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Провести анализ";
             // 
-            // закрытьToolStripMenuItem
-            // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(611, 225);
+            this.button1.Location = new System.Drawing.Point(557, 311);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(187, 23);
             this.button1.TabIndex = 14;
             this.button1.Text = "test";
             this.button1.UseVisualStyleBackColor = true;

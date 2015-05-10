@@ -20,7 +20,7 @@ namespace ABC_XYZ_analysis
     /***
         * Что можно реализовать интересного:
         * 1.
-        * 2. 
+        * 2. Добавить прелоадеры
         * 3. Можно даже рисовать графики в Excel (есть библиотека)
         * 4.
         * 5.Изменить прогресс-бар на начальной форме
@@ -29,13 +29,13 @@ namespace ABC_XYZ_analysis
         * 
         * 
         * Что надо поправить:
-        * 1. Закрытие форм
+        * 1.
         * 2. 
         * 3.
         * 
         * 
         * Что обязательно нужно реализовать:
-        * 1. Добавить алерт в форму ColumnsForAnalysis.cs при закрытии
+        * 1.
         * 2.
         * 3.
     ***/
@@ -43,10 +43,7 @@ namespace ABC_XYZ_analysis
     public partial class MainForm : Form
     {
         private List<Product> ProductsList = new List<Product>(); // все товары, основной список
-        //private Dictionary<string>
-
         private Dictionary<string, string> ExcelFileSettings = new Dictionary<string, string>(); // словарь с настройками для загружаемого excel файла
-
         public Dictionary<string, int> ColumnsList = new Dictionary<string, int>();//имена колонок и их номера входной таблицы
         
         public MainForm()
@@ -75,6 +72,7 @@ namespace ABC_XYZ_analysis
             dataGridView1.DataError += new DataGridViewDataErrorEventHandler(DataGridView1_DataError);
             this.dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(DataGridView1_CellValueChanged);
         }
+
         public void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs anError)
         {
             //MessageBox.Show("Ошибка ввода!");
@@ -108,6 +106,7 @@ namespace ABC_XYZ_analysis
         {
             this.ExcelFileSettings = ExcelFileSettings;
         }
+        
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -118,6 +117,7 @@ namespace ABC_XYZ_analysis
             LoadExclelFile();
         }
 
+        /*Загрузить экселевский файл*/
         public void LoadExclelFile()
         {
             /***
@@ -129,7 +129,6 @@ namespace ABC_XYZ_analysis
             
 
             OpenFileDialog ofd = new OpenFileDialog();
-            //ofd.DefaultExt = "*.xls;*.xlsx";
             ofd.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
             ofd.Title = "Выберите документ для загрузки данных";
 
@@ -198,11 +197,9 @@ namespace ABC_XYZ_analysis
 
                         dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
                         label1.Text = "Путь к файлу: " + ofd.FileName;
+                        richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
                         CleanNullRowsColumns();
-                        
-                       //richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
-                        
-                    }
+                        }
                     catch
                     {
                     }
@@ -227,6 +224,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Перевести данные из DataGridView в словарь*/
         private List<Product> DataToDictionary(Dictionary<string, int> columns)
         {
             /****
@@ -243,8 +241,6 @@ namespace ABC_XYZ_analysis
                 int NameColumnIndex = columns["name"]; // узнаем в каком столбце имена товаров
                 columns.Remove("name");
 
-                //List<DataGridCell> invalid_cells = new List<DataGridCell>();
-
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     Product product;
@@ -256,13 +252,9 @@ namespace ABC_XYZ_analysis
                         try
                         {
                             values_analysis.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[columns.Values.ToList()[j]].Value)); // в список values_analysis записываем данные объемов продаж 
-                            // dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Red;        
-
                         }
                         catch
                         {
-                            // invalid_cells.Add(new DataGridCell(i,j));
-                            // continue;
                         }
                     }
 
@@ -284,6 +276,7 @@ namespace ABC_XYZ_analysis
             return products;
         }
 
+        /*Получить список колонок для анализа*/
         private Dictionary<string, int> ColumnsForAnalysis()
         {
             /***
@@ -306,6 +299,7 @@ namespace ABC_XYZ_analysis
             return columnsList;
         }
 
+        /*Из списка в DataGridView*/
         private void EstimatesToDataGridView(List<Product> ListOfProducts, Dictionary<string, int> columnsList)
         {
             /***
@@ -318,10 +312,7 @@ namespace ABC_XYZ_analysis
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null; // это тут должно быть обязательно!
 
-            dataGridView1.ColumnCount = (2 + columnsList.Count());
-            /*
-            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 8; // указываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными + 2 колонки (среднее значение и сумма по периодам) + 1 доля в позици + 1 доля нарастающим итогом + 1 группа) + 3 для XYZ
-            */
+            dataGridView1.ColumnCount = (2 + columnsList.Count()); // указываем количество колонок (2 колонки - имя, номер. Остальные колонки с данными
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
@@ -331,16 +322,6 @@ namespace ABC_XYZ_analysis
             }
 
             // добавляем колонки
-            /*dataGridView1.Columns[dataGridView1.ColumnCount - 8].Name = "Сумма"; 
-            dataGridView1.Columns[dataGridView1.ColumnCount - 7].Name = "Среднее значение";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 6].Name = "Процент";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 5].Name = "Нарастающим итогом";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 4].Name = "Группа ABC";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 3].Name = "Стандартное отклонение";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 2].Name = "Коэффициент вариации";
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Name = "Группа XYZ";
-            */
-
             for (int i = 0; i < ProductsList.Count; i++)
             {
                 List<string> row = new List<string> { ProductsList[i].number.ToString(), ProductsList[i].name.ToString() }; // создаем строку для добавления в datagridview, добавляем в нее имя и номер продукта
@@ -349,27 +330,8 @@ namespace ABC_XYZ_analysis
                 {
                     row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
                 }
-
-                /*
-                row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
-                row.Add(ProductsList[i].average_value.ToString()); // добавляем в строку среднее значение объемов продаж за периоды
-                row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
-                row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
-                row.Add(ProductsList[i].groupABC); // добавляем группу ABC
-                row.Add(ProductsList[i].standard_deviation.ToString());// добавляем в строку стендартное отклонение
-                row.Add(ProductsList[i].coefficient_of_variation.ToString());// добавляем в строку коэфф вариации
-                row.Add(ProductsList[i].groupXYZ);// добавляем в строку группу XYZ
-                */
-
-
-
                 dataGridView1.Rows.Add(row.ToArray<string>()); // добавляем строку в datagridview
-
-
-
             }
-
-           // richTextBox1.Text += "Полная сумма: " + Product.CalculateTotalSum(ProductsList).ToString() + "\n";
 
             dataGridView1.Columns[0].Width = 45; // задаем ширину столбца "номер товара"
 
@@ -381,6 +343,7 @@ namespace ABC_XYZ_analysis
 
         }
 
+        /*Стандартное отклонение, вариация, группа XYZ*/
         private List<Product> Deviation_Variation_GroupXYZ(List<Product> list, int value1, int value2)
         {
             /***
@@ -414,6 +377,7 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
+        /*Сортировка, арастающий итог, группы ABC*/
         private List<Product> Sort_GrowingPercent_GroupABC(List<Product> list, int value1, int value2)
         {
             /***
@@ -448,6 +412,7 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
+        /*Удалить пустые строки/столбцы*/
         private void CleanNullRowsColumns()
         {
             /***
@@ -510,6 +475,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Сохранить в Эксель*/
         private void ExportToExcel()
         {
             /***
@@ -527,36 +493,23 @@ namespace ABC_XYZ_analysis
                 {
                     ExcelApp.Application ExcelApp = new ExcelApp.Application();
                     ExcelApp.Application.Workbooks.Add(Type.Missing);
-
-                    //ExcelApp.ActiveWorkbook.FileFormat = XlFileFormat.xlExcel8;   
-                    // Change properties of the Workbook   
                     ExcelApp.Columns.ColumnWidth = 25;
-                    //ExcelApp.Rows = Color.Red;
-                    // Storing header part in Excel
-
+                    //ExcelApp.Rows[1].Style = Color.Red;
+                    
                     for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                     {
                         ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText; // записываем заголовки dataGridView
 
                     }
 
-                    // Storing Each row and column value to excel sheet   
                     for (int i = 0; i < dataGridView1.Rows.Count; i++)
                     {
                         for (int j = 0; j < dataGridView1.Columns.Count; j++)
                         {
                             ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString(); // записываем остальную таблицу
-                            // ExcelApp.Cells.BorderAround
                         }
                     }
-
-                    //Save Copy by giving file Path   
-                    // ExcelApp.ActiveWorkbook.SaveCopyAs("C:\\" + FileName);   
-
-                    //OR using SaveFileDialog   
-                    //ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName);
-
-                    //OR even you can use SaveAs function   
+  
                     ExcelApp.ActiveWorkbook.SaveAs(sfd.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, null, null, null,
                      null, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared, null, null, null, null, null);
 
@@ -574,6 +527,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Добавить столбец*/
         private void AddColumn(string column_name)
         {
             /***
@@ -583,7 +537,6 @@ namespace ABC_XYZ_analysis
             var new_column = new DataGridViewTextBoxColumn(); // создем колонку
             new_column.HeaderText = column_name; // присваиваем текст в заголовке
             new_column.Name = column_name; // присваиваем имя
-            //dataGridView1.Columns.Count = dataGridView1.Columns.Count;
             if (checkBox1.Checked) // если отмечен "добавить в начало"
             {
                 dataGridView1.Columns.Insert(0, new_column); // добавляем столбец в нулевую позицию
@@ -597,6 +550,7 @@ namespace ABC_XYZ_analysis
             New_column_name.Text = ""; // очищаем input "имя столбца"
         }
 
+        /*Удалить столбец*/
         private void DeleteColumn(int index)
         {
             /***
@@ -607,6 +561,7 @@ namespace ABC_XYZ_analysis
 
         }
 
+        /*Обновить элементы*/
         private void UpdateForm()
         {
             /***
@@ -624,6 +579,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Получить список неверных ячеек*/
         private List<DataGridCell> DataValidate(int name_column_index)
         {
             /***
@@ -655,6 +611,7 @@ namespace ABC_XYZ_analysis
             return invalid_cells_list;
         }
 
+        /*Показать неверные клетки*/
         private void ShowInvalidCells(List<DataGridCell> invalid_cells_list)
         {
             /***
@@ -668,6 +625,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Сделать анализ*/
         private void MakeAnalysis()
         {
            
@@ -682,7 +640,6 @@ namespace ABC_XYZ_analysis
                 ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
 
                 List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]);
-                //ShowInvalidCells(invalid_cells_list);
                 if (invalid_cells_list.Count == 0)
                 {
                     ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
@@ -691,7 +648,6 @@ namespace ABC_XYZ_analysis
                     richTextBox1.Text += "Проведен ABC-анализ" + "\n";
                     ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
                     richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
-                    //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                     richTextBox1.Text += "Анализы совмещены!" + "\n";
                     dataGridView1.AllowUserToAddRows = true;
                  
@@ -710,7 +666,8 @@ namespace ABC_XYZ_analysis
             }
             UpdateForm();
         }
-
+        
+        /*Кнопка ABC анализ*/
         private void button2_Click(object sender, EventArgs e)
         {
             setProductsList(new List<Product>()); // обнуляем список товаров
@@ -718,31 +675,38 @@ namespace ABC_XYZ_analysis
 
             if (dataGridView1.ColumnCount != 0)//если DGV не пуста
             {
-                dataGridView1.AllowUserToAddRows = false;
-                CleanNullRowsColumns(); // удаляем пустые строки и столбцы
-
-                ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
-
-                List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получаем список неверных ячеек
-                //ShowInvalidCells(invalid_cells_list);
-                if (invalid_cells_list.Count == 0) // если список неверных ячеек пуст
+                try
                 {
-                    ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
-                    //dataGridView1.Columns.Clear(); // чистим datagridview
-                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
-                    richTextBox1.Text += "Успешно проведен ABC-анализ" + "\n";
-                    ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
-                    //richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
-                    //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
-                   // richTextBox1.Text += "Анализы совмещены!" + "\n";
-                    dataGridView1.AllowUserToAddRows = true;
-                    new ABCtable(this).ShowDialog(); // показываем таблицу
+                    dataGridView1.AllowUserToAddRows = false;
+                    CleanNullRowsColumns(); // удаляем пустые строки и столбцы
+
+                    ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
+
+                    if(ColumnsList.Count == 0) // если пришел пустой список (операция прервана закрытием окна), бросаем исключение
+                    {
+                        throw new Exception();
+                    }
+                    List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получаем список неверных ячеек
+                   
+                    if (invalid_cells_list.Count == 0) // если список неверных ячеек пуст
+                    {
+                        ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
+                        ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
+                        richTextBox1.Text += "Успешно проведен ABC-анализ" + "\n";
+                        ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
+                        dataGridView1.AllowUserToAddRows = true;
+                        new ABCtable(this).ShowDialog(); // показываем таблицу
+                    }
+                    else
+                    {
+                        ShowInvalidCells(invalid_cells_list); // отмечаем ячейки с неверными значениеями
+                        richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
+                        MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
+                    }
                 }
-                else
+                catch
                 {
-                    ShowInvalidCells(invalid_cells_list); // отмечаем ячейки с неверными значениеями
-                    richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
-                    MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
+ 
                 }
             }
             else
@@ -753,6 +717,7 @@ namespace ABC_XYZ_analysis
             UpdateForm();  
         }
 
+        /*Кнопка XYZ анализ*/
         private void button3_Click(object sender, EventArgs e)
         {
             
@@ -761,32 +726,36 @@ namespace ABC_XYZ_analysis
 
             if (dataGridView1.ColumnCount != 0)//если DGV не пуста
             {
-                dataGridView1.AllowUserToAddRows = false;
-                CleanNullRowsColumns(); // удаляем пустые строки и столбцы
-
-                ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
-
-                List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получем список неправильных ячеек
-                //ShowInvalidCells(invalid_cells_list);
-                if (invalid_cells_list.Count == 0) // если список пустой
+                try
                 {
-                    ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
-                    //dataGridView1.Columns.Clear(); // чистим datagridview
-                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
-                    //richTextBox1.Text += "Проведен ABC-анализ" + "\n";
-                    ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
-                    richTextBox1.Text += "Успешно проведен XYZ-анализ" + "\n";
-                    //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
-                    //richTextBox1.Text += "Анализы совмещены!" + "\n";
-                    dataGridView1.AllowUserToAddRows = true;
-                    new XYZTable(this).ShowDialog();
+                    dataGridView1.AllowUserToAddRows = false;
+                    CleanNullRowsColumns(); // удаляем пустые строки и столбцы
+
+                    ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
+
+                    if (ColumnsList.Count == 0) // если пришел пустой список (операция прервана закрытием окна), бросаем исключение
+                    {
+                        throw new Exception();
+                    }
+                    List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получем список неправильных ячеек
+                    if (invalid_cells_list.Count == 0) // если список пустой
+                    {
+                        ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
+                        ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
+                        ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
+                        richTextBox1.Text += "Успешно проведен XYZ-анализ" + "\n";
+                        dataGridView1.AllowUserToAddRows = true;
+                        new XYZTable(this).ShowDialog();
+                    }
+                    else
+                    {
+                        ShowInvalidCells(invalid_cells_list); // отменчаем ячейки с неверными значениями
+                        richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
+                        MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
+                    }
                 }
-                else
-                {
-                    ShowInvalidCells(invalid_cells_list); // отменчаем ячейки с неверными значениями
-                    richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
-                    MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
-                }
+                catch
+                { }
             }
             else
             {
@@ -796,6 +765,7 @@ namespace ABC_XYZ_analysis
             UpdateForm(); // обновляем
         }
 
+        /*Кнопка ABC-XYZ анализ*/
         private void button4_Click(object sender, EventArgs e)
         {
             
@@ -804,32 +774,37 @@ namespace ABC_XYZ_analysis
 
             if (dataGridView1.ColumnCount != 0)//если DGV не пуста
             {
-                dataGridView1.AllowUserToAddRows = false;
-                CleanNullRowsColumns(); // удаляем пустые строки и столбцы
-
-                ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
-
-                List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получаем список неправильных ячеек
-                //ShowInvalidCells(invalid_cells_list);
-                if (invalid_cells_list.Count == 0) // если этот список пуст
+                try
                 {
-                    ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
-                    //dataGridView1.Columns.Clear(); // чистим datagridview
-                    ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
-                    richTextBox1.Text += "Проведен ABC-анализ" + "\n";
-                    ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
-                    richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
-                    //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
-                    richTextBox1.Text += "Анализы совмещены. ABC+XYZ-анализ успешно проведен" + "\n";
-                    dataGridView1.AllowUserToAddRows = true;
-                    new ABC_XYZtable(this).ShowDialog(); //показываем таблицу
+                    dataGridView1.AllowUserToAddRows = false;
+                    CleanNullRowsColumns(); // удаляем пустые строки и столбцы
+
+                    ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
+
+                    if (ColumnsList.Count == 0) // если пришел пустой список (операция прервана закрытием окна), бросаем исключение
+                    {
+                        throw new Exception();
+                    }
+                    List<DataGridCell> invalid_cells_list = DataValidate(ColumnsList["name"]); // получаем список неправильных ячеек
+                    if (invalid_cells_list.Count == 0) // если этот список пуст
+                    {
+                        ProductsList = DataToDictionary(ColumnsList);  // переводим данные из DGV в словарь
+                        ProductsList = Sort_GrowingPercent_GroupABC(ProductsList, 80, 95); // сортируем, добавляем нарастающий итог и группу ABC
+                        richTextBox1.Text += "Проведен ABC-анализ" + "\n";
+                        ProductsList = Deviation_Variation_GroupXYZ(ProductsList, 15, 30); // добавляем среднее отклонение, коэфф вариации и группу XYZ
+                        richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
+                        richTextBox1.Text += "Анализы совмещены. ABC+XYZ-анализ успешно проведен" + "\n";
+                        dataGridView1.AllowUserToAddRows = true;
+                        new ABC_XYZtable(this).ShowDialog(); //показываем таблицу
+                    }
+                    else
+                    {
+                        ShowInvalidCells(invalid_cells_list); // выделяем неправльные ячейки
+                        richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
+                        MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
+                    }
                 }
-                else
-                {
-                    ShowInvalidCells(invalid_cells_list); // выделяем неправльные ячейки
-                    richTextBox1.Text += "Ошибка! Неверные значения ячеек." + "\n";
-                    MessageBox.Show("Найдены неверные значения в некоторых ячейках. Они отмечены красным");
-                }
+                catch { }
             }
             else
             {
@@ -844,6 +819,7 @@ namespace ABC_XYZ_analysis
             ExportToExcel(); 
         }
 
+        /*Кнопка Добавление столбца*/
         private void button6_Click(object sender, EventArgs e)
         {
             if (New_column_name.Text != "") // если поле с именем не пусто
@@ -857,6 +833,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Кнопка Удаление столбца*/
         private void button7_Click(object sender, EventArgs e)
         {
             if (comboBox__delete_column.Items.Count != 0) // если комбобокс не пустой
@@ -869,7 +846,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
-
+        /*Закрытие формы*/
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             /***
@@ -881,17 +858,21 @@ namespace ABC_XYZ_analysis
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
+        /*Сохранение исходных данных*/
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.ColumnCount > 0) // если dataGridView не пуста
             {
+                dataGridView1.AllowUserToAddRows = false;
                 ExportToExcel(); // сохраняем в эксель
+                dataGridView1.AllowUserToAddRows = true;
             }
             else {
                 MessageBox.Show("Нечего сохранть!");
             }
         }
 
+        /*Показать окно "О программе"*/
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AboutForm().ShowDialog();//форма "О программе"
@@ -902,6 +883,7 @@ namespace ABC_XYZ_analysis
 
         }
 
+        /*Действие при изменении ячейки DataGridView*/
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             /***
@@ -927,6 +909,7 @@ namespace ABC_XYZ_analysis
 
         }
 
+        /*Очистка DataGridView, при выборе "Закрыть" из меню*/
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             /***
@@ -953,6 +936,7 @@ namespace ABC_XYZ_analysis
             }
         }
 
+        /*Тестовая кнопочка*/
         private void button1_Click(object sender, EventArgs e)
         {
             //new Form2().ShowDialog();

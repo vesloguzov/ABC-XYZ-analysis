@@ -29,10 +29,11 @@ namespace ABC_XYZ_analysis
 
         private void ABC_XYZtable_Load(object sender, EventArgs e)
         {
-            List<Product> local = MainForm.getProductsList();
-            local = Product.SortList(local, "number");
+            List<Product> local = MainForm.getProductsList();// получаем список продуктов из главной формы
 
-            for (int i = 0; i < local.Count; i++)
+            local = Product.SortList(local, "number"); // сортируем по номеру
+
+            for (int i = 0; i < local.Count; i++)// каждый из продктов, в зависимости от группы, запихиваем в определенное окошко
             {
                 if (local[i].groupABC == "A")
                 {
