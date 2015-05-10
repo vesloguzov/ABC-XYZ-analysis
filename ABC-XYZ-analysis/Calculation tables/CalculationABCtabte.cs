@@ -20,10 +20,12 @@ namespace ABC_XYZ_analysis
         public CalculationABCtabte()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
         }
 
         public CalculationABCtabte(MainForm MainForm)
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             this.MainForm = MainForm;
             InitializeComponent();
         }
@@ -45,6 +47,7 @@ namespace ABC_XYZ_analysis
             dataGridView1.ColumnCount = (2 + columnsList.Count()) + 4; 
 
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
+            dataGridView1.Columns[0].Width = 45;
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
 
             for (int i = 0; i < columnsList.Count; i++)

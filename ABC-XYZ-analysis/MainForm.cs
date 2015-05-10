@@ -52,11 +52,13 @@ namespace ABC_XYZ_analysis
         public MainForm()
         {
             // стартовая форма открывается
-            new StartForm().ShowDialog();
+            Form srart_form = new StartForm();
+            srart_form.StartPosition = FormStartPosition.CenterScreen;
+            srart_form.ShowDialog();
 
             InitializeComponent();
-            
-             
+
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             //делаем плавное появление формы
               
             Opacity = 0;
@@ -193,11 +195,13 @@ namespace ABC_XYZ_analysis
                         try
                         {
                          dataGridView1.Columns.Clear();
-                        dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
-                        CleanNullRowsColumns(); //
-                       // richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
 
+                        dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
                         label1.Text = "Путь к файлу: " + ofd.FileName;
+                        CleanNullRowsColumns();
+                        
+                       //richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
+                        
                     }
                     catch
                     {
@@ -689,6 +693,7 @@ namespace ABC_XYZ_analysis
                     richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
                     //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                     richTextBox1.Text += "Анализы совмещены!" + "\n";
+                    dataGridView1.AllowUserToAddRows = true;
                  
                 }
                 else
@@ -730,7 +735,7 @@ namespace ABC_XYZ_analysis
                     //richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
                     //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                    // richTextBox1.Text += "Анализы совмещены!" + "\n";
-                    
+                    dataGridView1.AllowUserToAddRows = true;
                     new ABCtable(this).ShowDialog(); // показываем таблицу
                 }
                 else
@@ -773,7 +778,7 @@ namespace ABC_XYZ_analysis
                     richTextBox1.Text += "Успешно проведен XYZ-анализ" + "\n";
                     //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                     //richTextBox1.Text += "Анализы совмещены!" + "\n";
-                    
+                    dataGridView1.AllowUserToAddRows = true;
                     new XYZTable(this).ShowDialog();
                 }
                 else
@@ -816,7 +821,7 @@ namespace ABC_XYZ_analysis
                     richTextBox1.Text += "Проведен XYZ-анализ" + "\n";
                     //EstimatesToDataGridView(ProductsList, ColumnsList); // показываем в DGVS
                     richTextBox1.Text += "Анализы совмещены. ABC+XYZ-анализ успешно проведен" + "\n";
-                    
+                    dataGridView1.AllowUserToAddRows = true;
                     new ABC_XYZtable(this).ShowDialog(); //показываем таблицу
                 }
                 else
@@ -935,6 +940,7 @@ namespace ABC_XYZ_analysis
                     dataGridView1.Columns.Clear();
                     dataGridView1.DataSource = null;
                     richTextBox1.Text += "Рабочая область очищена" + "\n";
+                    label1.Text = "Путь к файлу:";
                 }
                 else
                 {
@@ -945,6 +951,24 @@ namespace ABC_XYZ_analysis
             {
                 MessageBox.Show("Рабочая область итак пуста.");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //new Form2().ShowDialog();
+            
+            Form form2 = new Form2();
+            // Set the text displayed in the caption.
+            form2.Text = "My Form";
+            // Set the opacity to 75%.
+           // form2.Opacity = .75;
+            // Size the form to be 300 pixels in height and width.
+            form2.Size = new Size(669, 394);
+            // Display the form in the center of the screen.
+            form2.StartPosition = FormStartPosition.CenterScreen;
+
+            // Display the form as a modal dialog box.
+            form2.ShowDialog();
         }
     }
 }

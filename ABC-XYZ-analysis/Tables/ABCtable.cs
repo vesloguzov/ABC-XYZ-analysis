@@ -18,6 +18,7 @@ namespace ABC_XYZ_analysis
 
         public ABCtable()
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             InitializeComponent();
             /*
             Opacity = 0;
@@ -33,6 +34,7 @@ namespace ABC_XYZ_analysis
 
         public ABCtable(MainForm MainForm)
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             this.MainForm = MainForm;
             InitializeComponent();
           }

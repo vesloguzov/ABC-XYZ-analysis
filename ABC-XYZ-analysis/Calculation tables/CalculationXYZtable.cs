@@ -19,13 +19,16 @@ namespace ABC_XYZ_analysis
 
         public CalculationXYZtable()
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             InitializeComponent();
         }
 
         public CalculationXYZtable(MainForm MainForm)
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             this.MainForm = MainForm;
             InitializeComponent();
+
         }
         private void EstimatesToDataGridView(List<Product> ProductsList, Dictionary<string, int> columnsList)
         {

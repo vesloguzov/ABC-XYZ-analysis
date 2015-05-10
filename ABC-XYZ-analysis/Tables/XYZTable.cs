@@ -19,10 +19,12 @@ namespace ABC_XYZ_analysis
         public XYZTable()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
         }
 
         public XYZTable(MainForm MainForm)
         {
+            this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
             this.MainForm = MainForm;
             InitializeComponent();
           }
