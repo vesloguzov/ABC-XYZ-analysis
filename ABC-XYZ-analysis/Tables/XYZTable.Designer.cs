@@ -43,60 +43,51 @@
             // listBoxGroupX
             // 
             this.listBoxGroupX.FormattingEnabled = true;
-            this.listBoxGroupX.ItemHeight = 16;
-            this.listBoxGroupX.Location = new System.Drawing.Point(33, 54);
-            this.listBoxGroupX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxGroupX.Location = new System.Drawing.Point(25, 44);
             this.listBoxGroupX.Name = "listBoxGroupX";
-            this.listBoxGroupX.Size = new System.Drawing.Size(268, 292);
+            this.listBoxGroupX.Size = new System.Drawing.Size(202, 238);
             this.listBoxGroupX.TabIndex = 0;
             // 
             // listBoxGroupY
             // 
             this.listBoxGroupY.FormattingEnabled = true;
-            this.listBoxGroupY.ItemHeight = 16;
-            this.listBoxGroupY.Location = new System.Drawing.Point(336, 54);
-            this.listBoxGroupY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxGroupY.Location = new System.Drawing.Point(252, 44);
             this.listBoxGroupY.Name = "listBoxGroupY";
-            this.listBoxGroupY.Size = new System.Drawing.Size(268, 292);
+            this.listBoxGroupY.Size = new System.Drawing.Size(202, 238);
             this.listBoxGroupY.TabIndex = 1;
             // 
             // listBoxGroupZ
             // 
             this.listBoxGroupZ.FormattingEnabled = true;
-            this.listBoxGroupZ.ItemHeight = 16;
-            this.listBoxGroupZ.Location = new System.Drawing.Point(637, 54);
-            this.listBoxGroupZ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxGroupZ.Location = new System.Drawing.Point(478, 44);
             this.listBoxGroupZ.Name = "listBoxGroupZ";
-            this.listBoxGroupZ.Size = new System.Drawing.Size(268, 292);
+            this.listBoxGroupZ.Size = new System.Drawing.Size(202, 238);
             this.listBoxGroupZ.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(125, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(94, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 17);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Группа X";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(433, 34);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(325, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Группа Y";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(745, 34);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(559, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 17);
+            this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Группа Z";
             // 
@@ -107,28 +98,30 @@
             this.сохранитьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(923, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(692, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // показатьРасчетнуюТаблицуToolStripMenuItem
             // 
             this.показатьРасчетнуюТаблицуToolStripMenuItem.Name = "показатьРасчетнуюТаблицуToolStripMenuItem";
-            this.показатьРасчетнуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
+            this.показатьРасчетнуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(180, 20);
             this.показатьРасчетнуюТаблицуToolStripMenuItem.Text = "Показать расчетную таблицу";
             this.показатьРасчетнуюТаблицуToolStripMenuItem.Click += new System.EventHandler(this.показатьРасчетнуюТаблицуToolStripMenuItem_Click_1);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // XYZTable
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 362);
+            this.ClientSize = new System.Drawing.Size(692, 294);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -137,7 +130,6 @@
             this.Controls.Add(this.listBoxGroupX);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "XYZTable";
             this.Text = "Таблица XYZ-анализа";
             this.Load += new System.EventHandler(this.XYZTable_Load);

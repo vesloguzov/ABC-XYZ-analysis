@@ -12,14 +12,14 @@ namespace ABC_XYZ_analysis
 {
     public partial class ColumnsForAnalysis : Form
     {
-        private Form1 MainForm;
+        private MainForm MainForm;
 
         public ColumnsForAnalysis()
         {
             InitializeComponent();
         }
 
-        public ColumnsForAnalysis(Form1 MainForm)
+        public ColumnsForAnalysis(MainForm MainForm)
         {
         this.MainForm = MainForm;
            InitializeComponent();

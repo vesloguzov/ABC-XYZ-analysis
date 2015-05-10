@@ -13,7 +13,7 @@ namespace ABC_XYZ_analysis
 {
     public partial class LoadExcelFileSettings : Form
     {
-        private Form1 MainForm;
+        private MainForm MainForm;
 
         public LoadExcelFileSettings()
         {
@@ -21,7 +21,7 @@ namespace ABC_XYZ_analysis
             //this.FormClosing += new FormClosingEventHandler(LoadExcelFileSettings_FormClosing);
         }
 
-        public LoadExcelFileSettings(Form1 MainForm)
+        public LoadExcelFileSettings(MainForm MainForm)
         {
            this.MainForm = MainForm;
            InitializeComponent();

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExcelApp = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace ABC_XYZ_analysis
 {
     public partial class ABCtable : Form
     {
-        private Form1 MainForm;
+        private MainForm MainForm;
 
         public ABCtable()
         {
@@ -29,7 +31,7 @@ namespace ABC_XYZ_analysis
              */
         }
 
-        public ABCtable(Form1 MainForm)
+        public ABCtable(MainForm MainForm)
         {
             this.MainForm = MainForm;
             InitializeComponent();
@@ -39,7 +41,7 @@ namespace ABC_XYZ_analysis
         {
             List<Product> local = MainForm.getProductsList();
             local = Product.SortList(local, "number");
-
+            
             for (int i = 0; i < local.Count; i++)
             {
                 if (local[i].groupABC == "A")
@@ -71,6 +73,64 @@ namespace ABC_XYZ_analysis
         private void показатьПромеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new CalculationABCtabte(MainForm).ShowDialog();
+        }
+
+        private void ExportTableToExcel()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Files|*.xls";
+
+            sfd.FileName = "Таблица ABC";
+
+            DialogResult drSaveFile = sfd.ShowDialog();
+            try
+            {
+                if (drSaveFile == System.Windows.Forms.DialogResult.OK)
+                {
+                    ExcelApp.Application ExcelApp = new ExcelApp.Application();
+                    ExcelApp.Application.Workbooks.Add(Type.Missing);
+ 
+                    ExcelApp.Columns.ColumnWidth = 25;
+
+
+                    ExcelApp.Cells[1, 1] = "Группа A";
+                    for (int i = 1; i < listBoxGroupA.Items.Count+1; i++)
+                    {
+                        ExcelApp.Cells[i+1,1] = listBoxGroupA.Items[i-1].ToString();
+                    }
+                    
+                    ExcelApp.Cells[1, 2] = "Группа B";
+                    for (int i = 1; i < listBoxGroupB.Items.Count+1; i++)
+                    {
+                        ExcelApp.Cells[i + 1,2] = listBoxGroupB.Items[i-1];
+                    }
+
+
+                    ExcelApp.Cells[1, 3] = "Группа C";
+                    for (int i = 1; i < listBoxGroupC.Items.Count+1; i++)
+                    {
+                        ExcelApp.Cells[i + 1,3] = listBoxGroupC.Items[i-1];
+                    }
+
+                    //OR even you can use SaveAs function   
+                    ExcelApp.ActiveWorkbook.SaveAs(sfd.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, null, null, null,
+                     null, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared, null, null, null, null, null);
+
+                    FileInfo fileInfo = new FileInfo(sfd.FileName);
+                    ExcelApp.ActiveWorkbook.Saved = true;
+                    MessageBox.Show("Файл ''" + fileInfo.Name + "'' успешно сохранен в каталог: " + fileInfo.DirectoryName);
+                    ExcelApp.Quit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при сохрании файла: " + ex.Message);
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportTableToExcel();
         }
     }
 }

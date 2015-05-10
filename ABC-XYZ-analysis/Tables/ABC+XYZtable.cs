@@ -12,14 +12,14 @@ namespace ABC_XYZ_analysis
 {
     public partial class ABC_XYZtable : Form
     {
-        private Form1 MainForm;
+        private MainForm MainForm;
 
         public ABC_XYZtable()
         {
             InitializeComponent();
         }
 
-        public ABC_XYZtable(Form1 MainForm)
+        public ABC_XYZtable(MainForm MainForm)
         {
             this.MainForm = MainForm;
             InitializeComponent();

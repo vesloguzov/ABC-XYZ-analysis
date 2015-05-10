@@ -7,20 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExcelApp = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace ABC_XYZ_analysis
 {
     public partial class CalculationXYZtable : Form
     {
 
-        private Form1 MainForm;
+        private MainForm MainForm;
 
         public CalculationXYZtable()
         {
             InitializeComponent();
         }
-        
-        public CalculationXYZtable(Form1 MainForm)
+
+        public CalculationXYZtable(MainForm MainForm)
         {
             this.MainForm = MainForm;
             InitializeComponent();
@@ -91,6 +93,69 @@ namespace ABC_XYZ_analysis
             List<Product> local_products = MainForm.getProductsList();
             Dictionary<string, int> local_columns = MainForm.getColumnsList();
             EstimatesToDataGridView(local_products, local_columns);
+        }
+
+        private void ExportToExcel()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Files|*.xls";
+
+            sfd.FileName = "Расчетная таблица XYZ-анализа";
+
+            DialogResult drSaveFile = sfd.ShowDialog();
+            try
+            {
+                if (drSaveFile == System.Windows.Forms.DialogResult.OK)
+                {
+                    ExcelApp.Application ExcelApp = new ExcelApp.Application();
+                    ExcelApp.Application.Workbooks.Add(Type.Missing);
+
+                    //ExcelApp.ActiveWorkbook.FileFormat = XlFileFormat.xlExcel8;   
+                    // Change properties of the Workbook   
+                    ExcelApp.Columns.ColumnWidth = 25;
+                    //ExcelApp.Rows = Color.Red;
+                    // Storing header part in Excel
+
+                    for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                    {
+                        ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+
+                    }
+
+                    // Storing Each row and column value to excel sheet   
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                        {
+                            ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            // ExcelApp.Cells.BorderAround
+                        }
+                    }
+
+                    //Save Copy by giving file Path   
+                    // ExcelApp.ActiveWorkbook.SaveCopyAs("C:\\" + FileName);   
+
+                    //OR using SaveFileDialog   
+                    //ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName);
+
+                    //OR even you can use SaveAs function   
+                    ExcelApp.ActiveWorkbook.SaveAs(sfd.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, null, null, null,
+                     null, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared, null, null, null, null, null);
+
+                    FileInfo fileInfo = new FileInfo(sfd.FileName);
+                    ExcelApp.ActiveWorkbook.Saved = true;
+                    MessageBox.Show("Файл ''" + fileInfo.Name + "'' успешно сохранен в каталог: " + fileInfo.DirectoryName);
+                    ExcelApp.Quit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при сохрании файла: " + ex.Message);
+            }
+        }
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportToExcel();
         }
     }
 }
