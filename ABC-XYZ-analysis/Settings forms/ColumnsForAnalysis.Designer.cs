@@ -39,18 +39,16 @@
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 28);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 23);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(429, 174);
+            this.checkedListBox1.Size = new System.Drawing.Size(323, 139);
             this.checkedListBox1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(179, 352);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(134, 286);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 28);
+            this.button1.Size = new System.Drawing.Size(81, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Продолжить";
             this.button1.UseVisualStyleBackColor = true;
@@ -60,39 +58,35 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 300);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Location = new System.Drawing.Point(9, 244);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(429, 24);
+            this.comboBox1.Size = new System.Drawing.Size(323, 21);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 17);
+            this.label1.Size = new System.Drawing.Size(157, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Столбцы с объемами продаж";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 281);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 228);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 17);
+            this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Столбец имен";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(16, 219);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(12, 178);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(431, 28);
+            this.button2.Size = new System.Drawing.Size(323, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Отметить/снять все";
             this.button2.UseVisualStyleBackColor = true;
@@ -100,16 +94,16 @@
             // 
             // ColumnsForAnalysis
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 395);
+            this.ClientSize = new System.Drawing.Size(347, 321);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkedListBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ColumnsForAnalysis";
             this.ShowInTaskbar = false;
             this.Text = " Предоставить данные";

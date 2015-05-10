@@ -103,6 +103,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "LoadExcelFileSettings";
             this.Text = "Настройки загрузки";
             this.Load += new System.EventHandler(this.LoadExcelFileSettings_Load);

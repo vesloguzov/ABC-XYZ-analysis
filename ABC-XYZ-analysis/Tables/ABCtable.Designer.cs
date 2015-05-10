@@ -130,6 +130,7 @@
             this.Controls.Add(this.listBoxGroupB);
             this.Controls.Add(this.listBoxGroupA);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ABCtable";
             this.Text = "Таблица ABC-анализа";

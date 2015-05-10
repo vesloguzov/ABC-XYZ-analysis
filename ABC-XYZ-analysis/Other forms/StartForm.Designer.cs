@@ -42,7 +42,9 @@
             // 
             // progressBar2
             // 
+            this.progressBar2.ForeColor = System.Drawing.SystemColors.Desktop;
             this.progressBar2.Location = new System.Drawing.Point(0, 206);
+            this.progressBar2.Maximum = 200;
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(450, 19);
             this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -50,6 +52,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::ABC_XYZ_analysis.Properties.Resources.start_logo_450x200;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(450, 200);

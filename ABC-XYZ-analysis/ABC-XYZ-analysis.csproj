@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="Other forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="Other forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -65,10 +65,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StartForm.cs">
+    <Compile Include="Other forms\StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StartForm.Designer.cs">
+    <Compile Include="Other forms\StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tables\ABC+XYZtable.cs">
@@ -95,10 +95,10 @@
     <Compile Include="Calculation tables\CalculationXYZtable.Designer.cs">
       <DependentUpon>CalculationXYZtable.cs</DependentUpon>
     </Compile>
-    <Compile Include="ColumnsForAnalysis.cs">
+    <Compile Include="Settings forms\ColumnsForAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ColumnsForAnalysis.Designer.cs">
+    <Compile Include="Settings forms\ColumnsForAnalysis.Designer.cs">
       <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
@@ -107,10 +107,10 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadExcelFileSettings.cs">
+    <Compile Include="Settings forms\LoadExcelFileSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoadExcelFileSettings.Designer.cs">
+    <Compile Include="Settings forms\LoadExcelFileSettings.Designer.cs">
       <DependentUpon>LoadExcelFileSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Product.cs" />
@@ -123,13 +123,13 @@
       <DependentUpon>XYZTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
-    <EmbeddedResource Include="AboutForm.resx">
+    <EmbeddedResource Include="Other forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StartForm.resx">
+    <EmbeddedResource Include="Other forms\StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tables\ABC+XYZtable.resx">
@@ -144,13 +144,13 @@
     <EmbeddedResource Include="Calculation tables\CalculationXYZtable.resx">
       <DependentUpon>CalculationXYZtable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ColumnsForAnalysis.resx">
+    <EmbeddedResource Include="Settings forms\ColumnsForAnalysis.resx">
       <DependentUpon>ColumnsForAnalysis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoadExcelFileSettings.resx">
+    <EmbeddedResource Include="Settings forms\LoadExcelFileSettings.resx">
       <DependentUpon>LoadExcelFileSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -211,6 +211,10 @@
   <ItemGroup>
     <None Include="Resources\logo 200x370.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start logo 450x200.jpg" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

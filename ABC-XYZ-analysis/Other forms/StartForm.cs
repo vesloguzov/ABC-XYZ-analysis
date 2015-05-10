@@ -20,6 +20,7 @@ namespace ABC_XYZ_analysis
 
         private void StartForm_Load(object sender, EventArgs e)
         {
+           // progressBar2.ForeColor = Color.Red;
             timer1.Start();
 
         }

@@ -191,6 +191,7 @@
             this.Controls.Add(this.listBoxAZ);
             this.Controls.Add(this.listBoxAY);
             this.Controls.Add(this.listBoxAX);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ABC_XYZtable";
             this.Text = "Таблица ABC+XYZ-анализа";
             this.Load += new System.EventHandler(this.ABC_XYZtable_Load);

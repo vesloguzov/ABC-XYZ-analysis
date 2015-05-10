@@ -69,5 +69,15 @@ namespace ABC_XYZ_analysis.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap start_logo_450x200 {
+            get {
+                object obj = ResourceManager.GetObject("start logo 450x200", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
