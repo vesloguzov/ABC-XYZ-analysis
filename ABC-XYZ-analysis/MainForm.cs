@@ -973,5 +973,11 @@ namespace ABC_XYZ_analysis
             // Display the form as a modal dialog box.
             form2.ShowDialog();
         }
+
+        /*Выход из программы*/
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
