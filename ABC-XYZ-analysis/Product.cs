@@ -36,7 +36,7 @@ namespace ABC_XYZ_analysis
         }
 
 
-
+        /*Считаем сумму и среднее значение*/
         public void CalculateSumAndAverage(Product product)
         {
             /***
@@ -56,6 +56,7 @@ namespace ABC_XYZ_analysis
             product.average_value = average;
         }
 
+        /*сумма всего*/
         public static double CalculateTotalSum(List<Product> list)
         {
             /***
@@ -69,6 +70,7 @@ namespace ABC_XYZ_analysis
                 return sum;
         }
 
+        /*Процент от числа*/
         public static double Share(double value, double total)
         {
             /***
@@ -81,16 +83,16 @@ namespace ABC_XYZ_analysis
             return percent;
         }
 
+        /*Сортировка списка продуктов*/
         public static List<Product> SortList(List<Product> UnsortedList, string param)
-        { 
+        {
             /***
              * метод сортирует список по процентам, по убыванию
              * возвращает отсортированный список
+             * 2 параметра может принимать:
+             * param="percent" - сортировка по проценту от общей доли
+             * param=="number" - сортировка по номеру
              ***/
-          //  string prop = typeof(Product).GetProperty(propertyName).ToString();
-            
-           // int value = (int)prop.GetValue(Product, null);
-
             List<Product> SortedList = new List<Product>();
             if (param == "percent")
             {
@@ -103,6 +105,7 @@ namespace ABC_XYZ_analysis
             return SortedList;
         }
 
+        /*Нарастающий итог*/
         public static List<Product> GrowingPercent(List<Product> products)
         {
             /***
@@ -118,12 +121,14 @@ namespace ABC_XYZ_analysis
              return products;
         }
 
+        /*Стандартное отклонение*/
         public static List<Product> StandartDeviation(List<Product> products)
         {
             /***
              * метод присваивает продуктам стандартное отклонение
             ***/
             double param = 0; // тут промежуточные расчеты
+
             for (int i = 0; i < products.Count; i++) 
             {
                 param = 0;
@@ -137,6 +142,8 @@ namespace ABC_XYZ_analysis
             }
             return products;
         }
+
+        /*Коэффициент вариации*/
         public static List<Product> CoefficientOfVariation(List<Product> products)
         {
             /***

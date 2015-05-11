@@ -96,7 +96,10 @@ namespace ABC_XYZ_analysis
         {
             List<Product> local_products = MainForm.getProductsList();// получаем список продуктов из главной формы
 
+            //local_products = Product.SortList(local_products,"number");
+
             Dictionary<string, int> local_columns = MainForm.getColumnsList();// получаем словарь колонок из главной формы
+            
             EstimatesToDataGridView(local_products, local_columns); // рисуем в DataGridView
         }
 

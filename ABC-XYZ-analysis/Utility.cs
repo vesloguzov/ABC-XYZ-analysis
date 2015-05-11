@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ABC_XYZ_analysis
 {
+    /***
+     * Абстрактные класс с утилитами
+    ***/
     public abstract class Utility
     {
         public static bool IsNum(string s)
