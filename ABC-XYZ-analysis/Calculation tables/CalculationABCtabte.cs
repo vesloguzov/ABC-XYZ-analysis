@@ -91,10 +91,17 @@ namespace ABC_XYZ_analysis
 
         private void CalculationABCtabte_Load(object sender, EventArgs e)
         {
+            Form form2 = new Loader();
+            form2.Size = new Size(669, 394);
+            form2.StartPosition = FormStartPosition.CenterScreen;
+
+            // Display the form as a modal dialog box.
+            form2.ShowDialog();
             List<Product> local_products= MainForm.getProductsList(); // получаем список продуктов из главной формы
             Dictionary<string, int> local_columns = MainForm.getColumnsList(); // получаем словарь колонок из главной формы
 
             EstimatesToDataGridView(local_products, local_columns); // рисуем в DataGridView
+            form2.Close();
         }
 
         private void ExportToExcel()
@@ -102,7 +109,11 @@ namespace ABC_XYZ_analysis
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Files|*.xls";
 
-            sfd.FileName = "Расчетная таблица ABC-анализа";
+            string DateTime1 = DateTime.Now.ToString("dd.MM.yyyy HH mm");
+            sfd.FileName = "Расчетная таблица ABC-анализа (" + DateTime1 + ")";
+
+           // sfd.FileName = "Расчетная таблица ABC-анализа";
+            
 
             DialogResult drSaveFile = sfd.ShowDialog();
             try

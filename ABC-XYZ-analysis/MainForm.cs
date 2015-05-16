@@ -574,7 +574,9 @@ namespace ABC_XYZ_analysis
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Files|*.xls"; // отображаемый тип
 
-            sfd.FileName = "Исходные данные"; // имя по умолчанию
+            string DateTime1 = DateTime.Now.ToString("dd.MM.yyyy HH mm");
+            sfd.FileName = "Исходные данные (" + DateTime1 + ")";
+            //sfd.FileName = "Исходные данные"; // имя по умолчанию
 
             DialogResult drSaveFile = sfd.ShowDialog();
             try

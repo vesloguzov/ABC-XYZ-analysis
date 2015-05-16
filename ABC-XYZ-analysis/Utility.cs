@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace ABC_XYZ_analysis
 {
     /***
-     * Абстрактные класс с утилитами
+     * Абстрактный класс с утилитами
+     * вроде нигде не используется
     ***/
     public abstract class Utility
     {
+        /*Метод проверяет является ли строка числом*/
         public static bool IsNum(string s)
         {
             foreach (char c in s)

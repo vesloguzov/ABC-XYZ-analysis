@@ -66,7 +66,10 @@ namespace ABC_XYZ_analysis
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Files|*.xls";
 
-            sfd.FileName = "Таблица XYZ";
+            string DateTime1 = DateTime.Now.ToString("dd.MM.yyyy HH mm");
+            sfd.FileName = "Таблица XYZ (" + DateTime1 + ")";
+            
+            //sfd.FileName = "Таблица XYZ";
 
             DialogResult drSaveFile = sfd.ShowDialog();
             try

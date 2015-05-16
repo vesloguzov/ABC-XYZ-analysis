@@ -71,7 +71,10 @@ namespace ABC_XYZ_analysis
                 {
                     throw new Exception("Отметьте нужные столбцы!");
                 }
-
+                if (checkedListBox1.GetItemChecked(NameIndex))
+                {
+                    throw new Exception("Столбец имен присутствует а столбцах с данными!");
+                }
                 
                 MainForm.setColumnsList(local); // отдаем словарь в главную форму
                 Dispose();

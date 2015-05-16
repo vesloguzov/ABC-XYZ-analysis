@@ -10,7 +10,10 @@ namespace ABC_XYZ_analysis
     {
         /***
          * Класс продукт 
-         ***/
+        ***/
+
+
+        //поля класса:
         public int number; //  номер
         public string name; // имя
         public List<double> values_analysis; // список значений объемов продаж за отрезки
@@ -110,8 +113,7 @@ namespace ABC_XYZ_analysis
         {
             /***
              * метод присваивает нарастающий итог
-             * список products на  входе должен быть уже
-             * отсортирован
+             * список products на  входе должен быть уже отсортирован
             ***/
             products[0].growing_percent = products[0].percent;
              for (int i = 1; i < products.Count; i++) // добавляем к продуктам значение поля "нарастающим итогом"
