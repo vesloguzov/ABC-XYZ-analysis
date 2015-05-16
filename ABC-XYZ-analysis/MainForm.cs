@@ -212,7 +212,7 @@ namespace ABC_XYZ_analysis
                         //начинается с нуля.
                         try
                         {
-                         //dataGridView1.Columns.Clear();
+                         dataGridView1.Columns.Clear();
                          //dataGridView1.DataSource = null;
                         dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
                         
@@ -531,15 +531,6 @@ namespace ABC_XYZ_analysis
                 double param = 0;
                 for (int j = 0; j < dataGridRowsCount; j++)
                 {
-                    /*
-                    if (dataGridView1.Rows[j].Cells[i].Value == null)
-                    {
-                        richTextBox1.Text += "null" + "\n";
-                    }
-                    else { richTextBox1.Text += "not null" + "\n"; }
-                    */
-
-                    // тут ошибка при i=dataGridColumnsCount-1
                     if (dataGridView1.Rows[j].Cells[i].Value != null)
                     {
                         if (dataGridView1.Rows[j].Cells[i].Value.ToString() != "")
@@ -593,8 +584,7 @@ namespace ABC_XYZ_analysis
                     ExcelApp.Application ExcelApp = new ExcelApp.Application();
                     ExcelApp.Application.Workbooks.Add(Type.Missing);
                     ExcelApp.Columns.ColumnWidth = 25;
-                    //ExcelApp.Rows[1].Style = Color.Red;
-                    
+
                     for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                     {
                         ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText; // записываем заголовки dataGridView
@@ -639,17 +629,12 @@ namespace ABC_XYZ_analysis
             new_column.HeaderText = column_name; // присваиваем текст в заголовке
             new_column.Name = column_name; // присваиваем имя
 
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                
-            }
-
             if (checkBox1.Checked) // если отмечен "добавить в начало"
             {
                 dataGridView1.Columns.Insert(0, new_column); // добавляем столбец в нулевую позицию
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    dataGridView1.Rows[i].Cells[0].Value = "";
+                    dataGridView1.Rows[i].Cells[0].Value = ""; // записываем в клетку значение ""
                 }
                 MessageBox.Show("Столбец успешно добавлен в начало");
             }
@@ -659,7 +644,7 @@ namespace ABC_XYZ_analysis
 
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count-1].Value = "";
+                    dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count - 1].Value = ""; // записываем в клетку значение ""
                 }
                 MessageBox.Show("Столбец успешно добавлен в конец");
              }
@@ -686,14 +671,17 @@ namespace ABC_XYZ_analysis
              * метод обновляет значения в comboBox__delete_column
             ***/
             comboBox__delete_column.Items.Clear(); // очищаем комбобокс
+            comboBox_rename_column.Items.Clear();
 
             if (dataGridView1.Columns.Count != 0)//если в dataGridView есть стобцы
             {
                 for (int i = 0; i < dataGridView1.Columns.Count; i++) 
                 {
-                    comboBox__delete_column.Items.Add(dataGridView1.Columns[i].Name); // имена столбцов добавляем в комбобокс
+                    comboBox__delete_column.Items.Add(dataGridView1.Columns[i].Name); // имена столбцов добавляем в комбобокс удаления
+                    comboBox_rename_column.Items.Add(dataGridView1.Columns[i].Name); // имена столбцов добавляем в комбобокс переименования
                 }
                 comboBox__delete_column.SelectedIndex = 0; // по умолчанию выбираем нулевой элемент
+                comboBox_rename_column.SelectedIndex = 0; // по умолчанию выбираем нулевой элемент
             }
         }
 
@@ -1096,6 +1084,40 @@ namespace ABC_XYZ_analysis
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*функция переименовывает стобец*/
+        private void RenameColumn(int index, string new_name)
+        {
+            this.dataGridView1.CellValueChanged -= new DataGridViewCellEventHandler(DataGridView1_CellValueChanged);
+            dataGridView1.Columns[index].Name = new_name;
+            dataGridView1.Columns[index].HeaderText = new_name;
+            UpdateForm();
+            textBox_rename_column.Clear();
+            this.dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(DataGridView1_CellValueChanged);
+            
+        }
+
+        /*кнопка "переименовать столбец"*/
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            if (textBox_rename_column.Text.Replace(" ", "") != "") // если введено новое имя
+            {
+                if (comboBox_rename_column.Items.Count != 0) // если комбобокс не пустой
+                {
+
+                    RenameColumn(comboBox_rename_column.SelectedIndex, textBox_rename_column.Text); //переименовываем колонку по индексу из комбобокса
+                    UpdateForm(); //обновляем форму
+                }
+                else
+                {
+                    MessageBox.Show("Нет столбцов!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите имя!");
+            }
         }
     }
 }

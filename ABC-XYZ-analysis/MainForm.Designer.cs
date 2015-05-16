@@ -55,12 +55,18 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.comboBox_rename_column = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox_rename_column = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -165,7 +171,7 @@
             // 
             this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Controls.Add(this.comboBox__delete_column);
-            this.groupBox1.Location = new System.Drawing.Point(218, 340);
+            this.groupBox1.Location = new System.Drawing.Point(206, 340);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(158, 113);
             this.groupBox1.TabIndex = 7;
@@ -174,7 +180,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(38, 66);
+            this.button7.Location = new System.Drawing.Point(38, 84);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 13;
@@ -186,7 +192,7 @@
             // 
             this.comboBox__delete_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox__delete_column.FormattingEnabled = true;
-            this.comboBox__delete_column.Location = new System.Drawing.Point(6, 23);
+            this.comboBox__delete_column.Location = new System.Drawing.Point(6, 40);
             this.comboBox__delete_column.Name = "comboBox__delete_column";
             this.comboBox__delete_column.Size = new System.Drawing.Size(146, 21);
             this.comboBox__delete_column.TabIndex = 12;
@@ -194,7 +200,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 49);
+            this.checkBox1.Location = new System.Drawing.Point(9, 54);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(117, 17);
             this.checkBox1.TabIndex = 8;
@@ -203,7 +209,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(62, 71);
+            this.button6.Location = new System.Drawing.Point(62, 84);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 9;
@@ -222,7 +228,7 @@
             // 
             // New_column_name
             // 
-            this.New_column_name.Location = new System.Drawing.Point(85, 23);
+            this.New_column_name.Location = new System.Drawing.Point(82, 22);
             this.New_column_name.Name = "New_column_name";
             this.New_column_name.Size = new System.Drawing.Size(100, 20);
             this.New_column_name.TabIndex = 11;
@@ -231,7 +237,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(6, 16);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(345, 91);
+            this.richTextBox1.Size = new System.Drawing.Size(186, 216);
             this.richTextBox1.TabIndex = 8;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -248,9 +254,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.richTextBox1);
-            this.groupBox2.Location = new System.Drawing.Point(393, 340);
+            this.groupBox2.Location = new System.Drawing.Point(553, 215);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(358, 113);
+            this.groupBox2.Size = new System.Drawing.Size(198, 238);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Журнал";
@@ -263,7 +269,7 @@
             this.groupBox3.Controls.Add(this.New_column_name);
             this.groupBox3.Location = new System.Drawing.Point(12, 340);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 113);
+            this.groupBox3.Size = new System.Drawing.Size(188, 113);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Добавить столбец";
@@ -282,7 +288,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(557, 311);
+            this.button1.Location = new System.Drawing.Point(553, 186);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(187, 23);
             this.button1.TabIndex = 14;
@@ -296,11 +302,60 @@
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.textBox_rename_column);
+            this.groupBox5.Controls.Add(this.button5);
+            this.groupBox5.Controls.Add(this.comboBox_rename_column);
+            this.groupBox5.Location = new System.Drawing.Point(370, 340);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(176, 113);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Переименовать столбец";
+            // 
+            // comboBox_rename_column
+            // 
+            this.comboBox_rename_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_rename_column.FormattingEnabled = true;
+            this.comboBox_rename_column.Location = new System.Drawing.Point(6, 19);
+            this.comboBox_rename_column.Name = "comboBox_rename_column";
+            this.comboBox_rename_column.Size = new System.Drawing.Size(164, 21);
+            this.comboBox_rename_column.TabIndex = 14;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(34, 84);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(103, 23);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "Переименовать";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            // 
+            // textBox_rename_column
+            // 
+            this.textBox_rename_column.Location = new System.Drawing.Point(74, 45);
+            this.textBox_rename_column.Name = "textBox_rename_column";
+            this.textBox_rename_column.Size = new System.Drawing.Size(96, 20);
+            this.textBox_rename_column.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Новое имя";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(760, 465);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -321,6 +376,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,5 +411,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox_rename_column;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ComboBox comboBox_rename_column;
     }
 }
