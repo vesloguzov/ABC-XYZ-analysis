@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using ExcelApp = Microsoft.Office.Interop.Excel;
 using ABC_XYZ_analysis.Properties;
+using System.Runtime.Serialization.Formatters.Binary;
+using Excel;
 
 //using MySql.Data.MySqlClient;
 using System.Configuration;
@@ -143,6 +145,7 @@ namespace ABC_XYZ_analysis
                     System.IO.FileAccess.Read);
                     Excel.IExcelDataReader IEDR;
                     int fileformat = ofd.SafeFileName.IndexOf(".xlsx");
+                    /*
                     if (fileformat > -1)
                     {
                         //2007 format *.xlsx
@@ -153,6 +156,20 @@ namespace ABC_XYZ_analysis
                         //97-2003 format *.xls
                         IEDR = Excel.ExcelReaderFactory.CreateBinaryReader(stream);
                     }
+                    */
+                    bool file_have_xls_format = false;
+                    if(ofd.FileName.EndsWith(".xlsx"))
+                    {
+                        //2007 format *.xlsx
+                        IEDR = Excel.ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    }
+                    else
+                    {
+                        file_have_xls_format = true;
+                        //97-2003 format *.xls
+                        IEDR = Excel.ExcelReaderFactory.CreateBinaryReader(stream);
+                    }
+
 
                     DataSet ds = IEDR.AsDataSet();
                     int tables_count = ds.Tables.Count; //количество таблиц в файле
@@ -172,10 +189,11 @@ namespace ABC_XYZ_analysis
                     //Если данное значение установлено в true
                     //то первая строка используется в качестве 
                     //заголовков для колонок
-                  
+                    
                         if (ExcelFileSettings["checked_heads"] == "1")
                         {
                             IEDR.IsFirstRowAsColumnNames = true;
+
                         }
                         else
                         {
@@ -183,19 +201,25 @@ namespace ABC_XYZ_analysis
                         }
 
                         int checked_table = 0; // номер выбранного листа
+
                         checked_table = Convert.ToInt32(ExcelFileSettings["checked_table"]); // получаем этот номер
 
-                        DataSet ds1 = IEDR.AsDataSet();
-
+                       DataSet ds1 = IEDR.AsDataSet();
+                        // DataSet ds1 = ReadExcelFile(ofd.FileName);
                         //Устанавливаем в качестве источника данных dataset 
                         //с указанием номера таблицы. Номер таблицы указавает 
                         //на соответствующий лист в файле нумерация листов 
                         //начинается с нуля.
                         try
                         {
-                         dataGridView1.Columns.Clear();
-
+                         //dataGridView1.Columns.Clear();
+                         //dataGridView1.DataSource = null;
                         dataGridView1.DataSource = ds1.Tables[checked_table];   // рисуем выбранный лист
+                        
+                        if (file_have_xls_format && ExcelFileSettings["checked_heads"] == "1")
+                            {
+                                FirstRowAsHeaders();
+                            }
                         label1.Text = "Путь к файлу: " + ofd.FileName;
                         richTextBox1.Text += "Открыт файл: " + ofd.SafeFileName + "\n";
                         CleanNullRowsColumns();
@@ -224,6 +248,48 @@ namespace ABC_XYZ_analysis
                 MessageBox.Show("Вы не выбрали файл для открытия",
                  "Загрузка данных...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        
+        /*Метод удаляет пробелы из ячеек */
+        public void DeleteSpacesFromCells(int name_column_index)
+        {
+            
+            /***
+             * Метод удаляет пробелы из ячеек,
+             * кроме столбца с именами товаров.
+             * НЕ ИСПОЛЬЗУЕТСЯ ПОКА!!!
+            ***/
+            for (int i = 0; i < dataGridView1.Rows.Count; i++) // циклами проходим все dataGridView 
+            {
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                {
+                    if (j != name_column_index) // если столбец не является столбцом имен 
+                    {
+                        dataGridView1.Rows[i].Cells[j].Value = (dataGridView1.Rows[i].Cells[j].Value.ToString()).Replace(" ",""); // получаем значение ячейки
+                       // cell_str = cell_str.Replace(".", ","); //заменяем точки на запятые
+                    }
+                }
+
+            }
+        }
+
+        /*Сделать заголовки столбцов из первой строки*/
+        public void FirstRowAsHeaders()
+        {
+            /***
+             * метод делает заголовки столбцов из первой строки,
+             * используется для старых файлов, формата xls (Microsoft Excel 2003-2007 вроде),
+             * так как для них не работает ствойство IsFirstRowAsColumnNames при загрузке
+            ***/ 
+            this.dataGridView1.CellValueChanged -= new DataGridViewCellEventHandler(DataGridView1_CellValueChanged); // отключаем обработчик изменения значений клеток
+            for (int i = 0; i < dataGridView1.ColumnCount; i++) // перебираем все столбцы
+            {
+                dataGridView1.Columns[i].HeaderText = dataGridView1.Rows[0].Cells[i].Value.ToString(); // присваиваем заголовок
+                dataGridView1.Columns[i].Name = dataGridView1.Rows[0].Cells[i].Value.ToString(); // присваиваем имя столбца
+            }
+            dataGridView1.Rows.RemoveAt(0); // удаляем первую строку
+            this.dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(DataGridView1_CellValueChanged); // включаем обработчик изменения значений клеток
         }
 
         /*Перевести данные из DataGridView в словарь*/
@@ -414,6 +480,8 @@ namespace ABC_XYZ_analysis
             return list;
         }
 
+        
+
         /*Удалить пустые строки/столбцы*/
         private void CleanNullRowsColumns()
         {
@@ -425,17 +493,23 @@ namespace ABC_XYZ_analysis
             ***/
 
             dataGridView1.AllowUserToAddRows = false;
-            
+
+            int dataGridRowsCount = dataGridView1.Rows.Count;
+            int dataGridColumnsCount = dataGridView1.ColumnCount;
+
             //цикл удаляет пустые строки
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridRowsCount; i++)
             {
                 double param = 0;
-                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                for (int j = 0; j < dataGridColumnsCount; j++)
                 {
-                    if (dataGridView1.Rows[i].Cells[j].Value.ToString() != "")
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
                     {
-                        param = 1;
-                        break;
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString() != "")
+                        {
+                            param = 1;
+                            break;
+                        }
                     }
                 }
                 if (param == 0)
@@ -444,18 +518,35 @@ namespace ABC_XYZ_analysis
                     i = 0;
                 }
 
+                dataGridRowsCount = dataGridView1.Rows.Count;
+                dataGridColumnsCount = dataGridView1.ColumnCount;
             }
 
+            dataGridRowsCount = dataGridView1.Rows.Count;
+            dataGridColumnsCount = dataGridView1.ColumnCount;
+
             // цикл удаляет пустые столбцы
-            for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            for (int i = 0; i < dataGridColumnsCount; i++)
             {
                 double param = 0;
-                for (int j = 0; j < dataGridView1.Rows.Count; j++)
+                for (int j = 0; j < dataGridRowsCount; j++)
                 {
-                    if (dataGridView1.Rows[j].Cells[i].Value.ToString() != "")
+                    /*
+                    if (dataGridView1.Rows[j].Cells[i].Value == null)
                     {
-                        param = 1;
-                        break;
+                        richTextBox1.Text += "null" + "\n";
+                    }
+                    else { richTextBox1.Text += "not null" + "\n"; }
+                    */
+
+                    // тут ошибка при i=dataGridColumnsCount-1
+                    if (dataGridView1.Rows[j].Cells[i].Value != null)
+                    {
+                        if (dataGridView1.Rows[j].Cells[i].Value.ToString() != "")
+                        {
+                            param = 1;
+                            break;
+                        }
                     }
                 }
                 if (param == 0)
@@ -463,15 +554,19 @@ namespace ABC_XYZ_analysis
                     dataGridView1.Columns.RemoveAt(i);
                     i = 0;
                 }
-
+                dataGridRowsCount = dataGridView1.Rows.Count;
+                dataGridColumnsCount = dataGridView1.ColumnCount;
             }
 
+            dataGridRowsCount = dataGridView1.Rows.Count;
+            dataGridColumnsCount = dataGridView1.ColumnCount;
+
             //цикл вставляет нули в пустые клетки
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridRowsCount; i++)
             {
-                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                for (int j = 0; j < dataGridColumnsCount; j++)
                 {
-                    if (dataGridView1.Rows[i].Cells[j].Value.ToString() == "")
+                    if ((dataGridView1.Rows[i].Cells[j].Value.ToString()).Replace(" ","") == "" || dataGridView1.Rows[i].Cells[j].Value == null)
                     {
                         dataGridView1.Rows[i].Cells[j].Value = "0";
                     }
@@ -538,20 +633,39 @@ namespace ABC_XYZ_analysis
              * метод добавляет столбец в dataGridView
              * на входе имя столбца
             ***/
+            this.dataGridView1.CellValueChanged -= new DataGridViewCellEventHandler(DataGridView1_CellValueChanged); // отключаем обработчик изменения значений клеток
+            
             var new_column = new DataGridViewTextBoxColumn(); // создем колонку
             new_column.HeaderText = column_name; // присваиваем текст в заголовке
             new_column.Name = column_name; // присваиваем имя
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                
+            }
+
             if (checkBox1.Checked) // если отмечен "добавить в начало"
             {
                 dataGridView1.Columns.Insert(0, new_column); // добавляем столбец в нулевую позицию
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = "";
+                }
                 MessageBox.Show("Столбец успешно добавлен в начало");
             }
             else // если не отмечен
             {
                 dataGridView1.Columns.Insert(dataGridView1.Columns.Count, new_column); // добавляем в конец
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count-1].Value = "";
+                }
                 MessageBox.Show("Столбец успешно добавлен в конец");
-            }
+             }
             New_column_name.Text = ""; // очищаем input "имя столбца"
+
+            this.dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(DataGridView1_CellValueChanged); // включаем обработчик изменения значений клеток
         }
 
         /*Удалить столбец*/
@@ -603,6 +717,7 @@ namespace ABC_XYZ_analysis
                         double l;
                         string cell_str = dataGridView1.Rows[i].Cells[j].Value.ToString(); // получаем значение ячейки
                         cell_str = cell_str.Replace(".",","); //заменяем точки на запятые
+                        cell_str = cell_str.Replace(" ", ""); //заменяем пробелы на пустые пустые значения 
                         if (double.TryParse(cell_str, out l) == false) // если значение ячейки не число
                         {
                             invalid_cells_list.Add(new DataGridCell(i, j)); //добавляем ячейку в список неверных ячеек
@@ -735,12 +850,12 @@ namespace ABC_XYZ_analysis
 
             if (dataGridView1.ColumnCount != 0)//если DGV не пуста
             {
-                try
-                {
+                
                     dataGridView1.AllowUserToAddRows = false;
-                    
+                 
                     CleanNullRowsColumns(); // удаляем пустые строки и столбцы
-
+ try
+                {  
                     ColumnsList = ColumnsForAnalysis(); // получаем столбцы для анализа
 
                     if (ColumnsList.Count == 0) // если пришел пустой список (операция прервана закрытием окна), бросаем исключение
@@ -765,7 +880,9 @@ namespace ABC_XYZ_analysis
                     }
                 }
                 catch
-                { }
+                {
+                    richTextBox1.Text += "где-то случалась ошибка!";
+                }
                 finally
                 {
                     dataGridView1.AllowUserToAddRows = true;
@@ -908,10 +1025,11 @@ namespace ABC_XYZ_analysis
             /***
              * метод отлавливает изменение значения клетки dataGridView
             ***/
- 
             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = dataGridView1.DefaultCellStyle.BackColor; // присваеваем клетке цвет по умолчанию
             string cell_value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(); // плучаем значение этой клетки
             cell_value = cell_value.Replace(".",","); // заменяем точки на запятые
+            cell_value = cell_value.Replace(" ", ""); // заменяем пробелы
+            
             double u;
             if (double.TryParse(cell_value, out u)) // если значение это число
             {
