@@ -16,7 +16,6 @@ namespace ABC_XYZ_analysis
     public partial class CalculationABCtabte : Form
     {
         private MainForm MainForm;
-
         public CalculationABCtabte()
         {
             InitializeComponent();
@@ -26,7 +25,7 @@ namespace ABC_XYZ_analysis
         public CalculationABCtabte(MainForm MainForm)
         {
             this.StartPosition = FormStartPosition.CenterScreen; // открываем эту форму по центру
-            this.MainForm = MainForm;
+            this.MainForm = MainForm; // получаем данные из вызывающей формы
             InitializeComponent();
         }
 
@@ -41,10 +40,10 @@ namespace ABC_XYZ_analysis
              * отобраны. к этому этапу мы должны иметь на 100% праввильные
              * данные для анализа
              ***/
-            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Clear(); // чистим столбцы
             dataGridView1.DataSource = null; // это тут должно быть обязательно!
 
-            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 4; 
+            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 4; // количество столбцов. 2 - номер и имя, + количество столбцов данных для анализа. +  4 - сумма, процент, нарастащим итогом, группа ABC
 
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[0].Width = 45; // задаем ширину колонки с номером
@@ -69,7 +68,6 @@ namespace ABC_XYZ_analysis
                 {
                     row.Add(ProductsList[i].values_analysis[j].ToString()); // добавляем в строку значения данных для расчета(колонки объемов продаж)
                 }
-
                 row.Add(ProductsList[i].sum_values.ToString());  // добавляем в строку сумму объемов продаж за периоды
                 row.Add(ProductsList[i].percent.ToString()); // добавляем в строку процент
                 row.Add(ProductsList[i].growing_percent.ToString()); // добавляем в строку нарастающий итог
@@ -91,17 +89,9 @@ namespace ABC_XYZ_analysis
 
         private void CalculationABCtabte_Load(object sender, EventArgs e)
         {
-            Form form2 = new Loader();
-            form2.Size = new Size(669, 394);
-            form2.StartPosition = FormStartPosition.CenterScreen;
-
-            // Display the form as a modal dialog box.
-            form2.ShowDialog();
             List<Product> local_products= MainForm.getProductsList(); // получаем список продуктов из главной формы
             Dictionary<string, int> local_columns = MainForm.getColumnsList(); // получаем словарь колонок из главной формы
-
             EstimatesToDataGridView(local_products, local_columns); // рисуем в DataGridView
-            form2.Close();
         }
 
         private void ExportToExcel()
@@ -134,24 +124,15 @@ namespace ABC_XYZ_analysis
                         ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
 
                     }
-
-                    // Storing Each row and column value to excel sheet   
+ 
                     for (int i = 0; i < dataGridView1.Rows.Count; i++)
                     {
                         for (int j = 0; j < dataGridView1.Columns.Count; j++)
                         {
                             ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            // ExcelApp.Cells.BorderAround
                         }
-                    }
+                    }   
 
-                    //Save Copy by giving file Path   
-                    // ExcelApp.ActiveWorkbook.SaveCopyAs("C:\\" + FileName);   
-
-                    //OR using SaveFileDialog   
-                    //ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName);
-
-                    //OR even you can use SaveAs function   
                     ExcelApp.ActiveWorkbook.SaveAs(sfd.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, null, null, null,
                      null, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared, null, null, null, null, null);
 

@@ -12,7 +12,6 @@ namespace ABC_XYZ_analysis
          * Класс продукт 
         ***/
 
-
         //поля класса:
         public int number; //  номер
         public string name; // имя

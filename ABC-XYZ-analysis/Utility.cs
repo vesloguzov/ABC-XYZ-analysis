@@ -12,7 +12,7 @@ namespace ABC_XYZ_analysis
     ***/
     public abstract class Utility
     {
-        /*Метод проверяет является ли строка числом*/
+        /* Метод проверяет является ли строка числом */
         public static bool IsNum(string s)
         {
             foreach (char c in s)

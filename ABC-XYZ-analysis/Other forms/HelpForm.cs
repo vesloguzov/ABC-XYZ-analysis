@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ABC_XYZ_analysis
 {
-    public partial class Loader : Form
+    public partial class HelpForm : Form
     {
-        public Loader()
+        public HelpForm()
         {
             InitializeComponent();
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
         }
     }
 }

@@ -39,7 +39,7 @@
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(12, 23);
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 62);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(323, 139);
             this.checkedListBox1.TabIndex = 0;
@@ -58,9 +58,9 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(9, 244);
+            this.comboBox1.Location = new System.Drawing.Point(12, 258);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(323, 21);
+            this.comboBox1.Size = new System.Drawing.Size(321, 21);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -69,22 +69,25 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 13);
+            this.label1.Size = new System.Drawing.Size(1096, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Столбцы с объемами продаж";
+            this.label1.Text = "Столбцы с объемами продаж. В данном поле отметьте только \\n те столбцы, которые В" +
+    "ы хотите использовать для расчета.\\nУбедитесь, что данные в этих столбцах верны " +
+    "и имеют /nтолько численные значения.";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 228);
+            this.label2.Location = new System.Drawing.Point(12, 237);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.Size = new System.Drawing.Size(248, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Столбец имен";
+            this.label2.Text = "Выберите столбец с наименованиями товаров:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 178);
+            this.button2.Location = new System.Drawing.Point(12, 207);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(323, 23);
             this.button2.TabIndex = 6;

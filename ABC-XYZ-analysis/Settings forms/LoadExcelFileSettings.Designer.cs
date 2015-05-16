@@ -38,7 +38,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(77, 226);
+            this.button1.Location = new System.Drawing.Point(77, 214);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 23);
             this.button1.TabIndex = 0;
@@ -49,24 +49,26 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 104);
+            this.checkBox1.Location = new System.Drawing.Point(12, 119);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(217, 17);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "В первой строке - названия столбцов";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Location = new System.Drawing.Point(12, 72);
+            this.comboBox1.Location = new System.Drawing.Point(12, 87);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(9, 41);
+            this.label1.Location = new System.Drawing.Point(9, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(263, 28);
             this.label1.TabIndex = 3;
@@ -76,21 +78,23 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 124);
+            this.label2.Location = new System.Drawing.Point(12, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(271, 45);
             this.label2.TabIndex = 4;
             this.label2.Text = "Отметьте этот пункт, если в первой строке Вашего документа содержатся наименовани" +
     "я столбцов, а не численные данные.";
             this.label2.UseCompatibleTextRendering = true;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(9, 9);
+            this.label3.Location = new System.Drawing.Point(9, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(263, 32);
             this.label3.TabIndex = 5;
             this.label3.Text = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // LoadExcelFileSettings
             // 

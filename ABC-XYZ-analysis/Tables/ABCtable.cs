@@ -82,6 +82,7 @@ namespace ABC_XYZ_analysis
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Files|*.xls";
+
             string DateTime1 =  DateTime.Now.ToString("dd.MM.yyyy HH mm");
             sfd.FileName = "Таблица ABC (" + DateTime1 + ")";
 
@@ -117,8 +118,7 @@ namespace ABC_XYZ_analysis
                     {
                         ExcelApp.Cells[i + 1,3] = listBoxGroupC.Items[i-1];
                     }
-
-                    //OR even you can use SaveAs function   
+  
                     ExcelApp.ActiveWorkbook.SaveAs(sfd.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, null, null, null,
                      null, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared, null, null, null, null, null);
 

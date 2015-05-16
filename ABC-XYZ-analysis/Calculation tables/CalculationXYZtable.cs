@@ -39,10 +39,10 @@ namespace ABC_XYZ_analysis
              * отобраны. к этому этапу мы должны иметь на 100% праввильные
              * данные для анализа
              ***/
-            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Clear(); // очищаем колонки
             dataGridView1.DataSource = null; // это тут должно быть обязательно!
 
-            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 5;
+            dataGridView1.ColumnCount = (2 + columnsList.Count()) + 5; //задаем колочество столбцоа. 2 - имя и номер товара. columnsList.Count - количество столбцов длля расчета. 5 - сумма, среднее значение, отклонение, коэфф вариации, группа XYZ 
 
             dataGridView1.Columns[0].Name = "Номер"; // имя колонки
             dataGridView1.Columns[1].Name = "Имя продукта"; // имя колонки
@@ -95,8 +95,6 @@ namespace ABC_XYZ_analysis
         private void CalculationXYZtable_Load(object sender, EventArgs e)
         {
             List<Product> local_products = MainForm.getProductsList();// получаем список продуктов из главной формы
-
-            //local_products = Product.SortList(local_products,"number");
 
             Dictionary<string, int> local_columns = MainForm.getColumnsList();// получаем словарь колонок из главной формы
             
