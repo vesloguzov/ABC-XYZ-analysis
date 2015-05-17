@@ -20,7 +20,7 @@ namespace ABC_XYZ_analysis
 
         private void StartForm_Load(object sender, EventArgs e)
         {
-           // progressBar2.ForeColor = Color.Red;
+            this.ControlBox = false;// progressBar2.ForeColor = Color.Red;
             timer1.Start();
 
         }
@@ -31,6 +31,36 @@ namespace ABC_XYZ_analysis
         }
 
         private void process1_Exited(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }
