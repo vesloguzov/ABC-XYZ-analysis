@@ -36,6 +36,7 @@
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.StartABCanalysis = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox_logs = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.comboBox_rename_column = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox_rename_column = new System.Windows.Forms.TextBox();
@@ -63,7 +63,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox_logs.SuspendLayout();
@@ -83,7 +82,8 @@
             this.оПрограммеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(735, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(980, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -96,47 +96,54 @@
             this.закрытьToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // закрытьToolStripMenuItem
             // 
             this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
             this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
             this.настройкиToolStripMenuItem.Text = "Настройки";
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
@@ -144,16 +151,18 @@
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 40);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 49);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(708, 294);
+            this.dataGridView1.Size = new System.Drawing.Size(944, 362);
             this.dataGridView1.TabIndex = 1;
             // 
             // StartABCanalysis
             // 
-            this.StartABCanalysis.Location = new System.Drawing.Point(4, 19);
+            this.StartABCanalysis.Location = new System.Drawing.Point(5, 23);
+            this.StartABCanalysis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StartABCanalysis.Name = "StartABCanalysis";
-            this.StartABCanalysis.Size = new System.Drawing.Size(221, 23);
+            this.StartABCanalysis.Size = new System.Drawing.Size(295, 28);
             this.StartABCanalysis.TabIndex = 3;
             this.StartABCanalysis.Text = "Анализ ABC";
             this.StartABCanalysis.UseVisualStyleBackColor = true;
@@ -161,9 +170,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(240, 19);
+            this.button3.Location = new System.Drawing.Point(320, 23);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(221, 23);
+            this.button3.Size = new System.Drawing.Size(295, 28);
             this.button3.TabIndex = 4;
             this.button3.Text = "Анализ XYZ";
             this.button3.UseVisualStyleBackColor = true;
@@ -171,9 +181,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(477, 19);
+            this.button4.Location = new System.Drawing.Point(636, 23);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(224, 23);
+            this.button4.Size = new System.Drawing.Size(299, 28);
             this.button4.TabIndex = 5;
             this.button4.Text = "Анализ ABC+XYZ";
             this.button4.UseVisualStyleBackColor = true;
@@ -181,9 +192,10 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(88, 84);
+            this.button7.Location = new System.Drawing.Point(117, 103);
+            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(150, 25);
+            this.button7.Size = new System.Drawing.Size(200, 31);
             this.button7.TabIndex = 13;
             this.button7.Text = "Удалить столбец";
             this.button7.UseVisualStyleBackColor = true;
@@ -193,26 +205,29 @@
             // 
             this.comboBox__delete_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox__delete_column.FormattingEnabled = true;
-            this.comboBox__delete_column.Location = new System.Drawing.Point(186, 32);
+            this.comboBox__delete_column.Location = new System.Drawing.Point(248, 39);
+            this.comboBox__delete_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox__delete_column.Name = "comboBox__delete_column";
-            this.comboBox__delete_column.Size = new System.Drawing.Size(146, 21);
+            this.comboBox__delete_column.Size = new System.Drawing.Size(193, 24);
             this.comboBox__delete_column.TabIndex = 12;
             // 
             // checkBox_new_column_as_first
             // 
             this.checkBox_new_column_as_first.AutoSize = true;
-            this.checkBox_new_column_as_first.Location = new System.Drawing.Point(67, 52);
+            this.checkBox_new_column_as_first.Location = new System.Drawing.Point(89, 64);
+            this.checkBox_new_column_as_first.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox_new_column_as_first.Name = "checkBox_new_column_as_first";
-            this.checkBox_new_column_as_first.Size = new System.Drawing.Size(213, 17);
+            this.checkBox_new_column_as_first.Size = new System.Drawing.Size(276, 21);
             this.checkBox_new_column_as_first.TabIndex = 8;
             this.checkBox_new_column_as_first.Text = "Добавить столбец в начало таблицы";
             this.checkBox_new_column_as_first.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(88, 84);
+            this.button6.Location = new System.Drawing.Point(117, 103);
+            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(150, 25);
+            this.button6.Size = new System.Drawing.Size(200, 31);
             this.button6.TabIndex = 9;
             this.button6.Text = "Добавить столбец";
             this.button6.UseVisualStyleBackColor = true;
@@ -221,24 +236,27 @@
             // label_file_parth
             // 
             this.label_file_parth.AutoSize = true;
-            this.label_file_parth.Location = new System.Drawing.Point(12, 24);
+            this.label_file_parth.Location = new System.Drawing.Point(16, 30);
+            this.label_file_parth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_file_parth.Name = "label_file_parth";
-            this.label_file_parth.Size = new System.Drawing.Size(77, 13);
+            this.label_file_parth.Size = new System.Drawing.Size(100, 17);
             this.label_file_parth.TabIndex = 10;
             this.label_file_parth.Text = "Путь к файлу:";
             // 
             // New_column_name
             // 
-            this.New_column_name.Location = new System.Drawing.Point(167, 13);
+            this.New_column_name.Location = new System.Drawing.Point(223, 16);
+            this.New_column_name.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.New_column_name.Name = "New_column_name";
-            this.New_column_name.Size = new System.Drawing.Size(148, 20);
+            this.New_column_name.Size = new System.Drawing.Size(196, 22);
             this.New_column_name.TabIndex = 11;
             // 
             // logs
             // 
-            this.logs.Location = new System.Drawing.Point(6, 16);
+            this.logs.Location = new System.Drawing.Point(8, 20);
+            this.logs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.logs.Name = "logs";
-            this.logs.Size = new System.Drawing.Size(343, 120);
+            this.logs.Size = new System.Drawing.Size(456, 147);
             this.logs.TabIndex = 8;
             this.logs.Text = "";
             this.logs.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -246,18 +264,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 16);
+            this.label3.Location = new System.Drawing.Point(17, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 13);
+            this.label3.Size = new System.Drawing.Size(195, 17);
             this.label3.TabIndex = 11;
             this.label3.Text = "Ведите имя нового столбца:";
             // 
             // groupBox_logs
             // 
             this.groupBox_logs.Controls.Add(this.logs);
-            this.groupBox_logs.Location = new System.Drawing.Point(364, 406);
+            this.groupBox_logs.Location = new System.Drawing.Point(485, 500);
+            this.groupBox_logs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox_logs.Name = "groupBox_logs";
-            this.groupBox_logs.Size = new System.Drawing.Size(356, 141);
+            this.groupBox_logs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_logs.Size = new System.Drawing.Size(475, 174);
             this.groupBox_logs.TabIndex = 11;
             this.groupBox_logs.TabStop = false;
             this.groupBox_logs.Text = "Журнал";
@@ -267,38 +288,32 @@
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Controls.Add(this.StartABCanalysis);
             this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Location = new System.Drawing.Point(12, 344);
+            this.groupBox4.Location = new System.Drawing.Point(16, 423);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(708, 54);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Size = new System.Drawing.Size(944, 66);
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Провести анализ";
             this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(551, 554);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(163, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // comboBox_rename_column
             // 
             this.comboBox_rename_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_rename_column.FormattingEnabled = true;
-            this.comboBox_rename_column.Location = new System.Drawing.Point(178, 13);
+            this.comboBox_rename_column.Location = new System.Drawing.Point(237, 16);
+            this.comboBox_rename_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_rename_column.Name = "comboBox_rename_column";
-            this.comboBox_rename_column.Size = new System.Drawing.Size(151, 21);
+            this.comboBox_rename_column.Size = new System.Drawing.Size(200, 24);
             this.comboBox_rename_column.TabIndex = 14;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(88, 84);
+            this.button5.Location = new System.Drawing.Point(117, 103);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 25);
+            this.button5.Size = new System.Drawing.Size(200, 31);
             this.button5.TabIndex = 15;
             this.button5.Text = "Переименовать столбец";
             this.button5.UseVisualStyleBackColor = true;
@@ -306,17 +321,19 @@
             // 
             // textBox_rename_column
             // 
-            this.textBox_rename_column.Location = new System.Drawing.Point(165, 49);
+            this.textBox_rename_column.Location = new System.Drawing.Point(220, 60);
+            this.textBox_rename_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_rename_column.Name = "textBox_rename_column";
-            this.textBox_rename_column.Size = new System.Drawing.Size(164, 20);
+            this.textBox_rename_column.Size = new System.Drawing.Size(217, 22);
             this.textBox_rename_column.TabIndex = 12;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 52);
+            this.label2.Location = new System.Drawing.Point(17, 64);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 13);
+            this.label2.Size = new System.Drawing.Size(189, 17);
             this.label2.TabIndex = 12;
             this.label2.Text = "Введите новое имя столца:";
             // 
@@ -325,10 +342,11 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 408);
+            this.tabControl1.Location = new System.Drawing.Point(16, 502);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(346, 141);
+            this.tabControl1.Size = new System.Drawing.Size(461, 174);
             this.tabControl1.TabIndex = 9;
             // 
             // tabPage1
@@ -337,10 +355,11 @@
             this.tabPage1.Controls.Add(this.checkBox_new_column_as_first);
             this.tabPage1.Controls.Add(this.New_column_name);
             this.tabPage1.Controls.Add(this.button6);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(338, 115);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(453, 145);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Добавить столбец";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -350,10 +369,11 @@
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.comboBox__delete_column);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(338, 115);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Size = new System.Drawing.Size(453, 145);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Удалить столбец";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -361,9 +381,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 35);
+            this.label4.Location = new System.Drawing.Point(8, 43);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(175, 13);
+            this.label4.Size = new System.Drawing.Size(231, 17);
             this.label4.TabIndex = 14;
             this.label4.Text = "Выберите столбец для удаления:";
             // 
@@ -374,9 +395,10 @@
             this.tabPage3.Controls.Add(this.comboBox_rename_column);
             this.tabPage3.Controls.Add(this.textBox_rename_column);
             this.tabPage3.Controls.Add(this.button5);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(338, 115);
+            this.tabPage3.Size = new System.Drawing.Size(453, 145);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Переименовать столбец";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -384,32 +406,26 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 16);
+            this.label5.Location = new System.Drawing.Point(17, 20);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(162, 13);
+            this.label5.Size = new System.Drawing.Size(212, 17);
             this.label5.TabIndex = 16;
             this.label5.Text = "Столбец для переименования:";
             // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
-            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 565);
+            this.ClientSize = new System.Drawing.Size(980, 695);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox_logs);
             this.Controls.Add(this.label_file_parth);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "Проведение ABC-XYZ-анализа";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -453,7 +469,6 @@
         private System.Windows.Forms.GroupBox groupBox_logs;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
         private System.Windows.Forms.Label label2;

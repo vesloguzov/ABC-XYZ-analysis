@@ -54,9 +54,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
             this.label1.Location = new System.Drawing.Point(160, 70);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(379, 24);
+            this.label1.Size = new System.Drawing.Size(390, 24);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Высшая школы экономики и менджмента";
+            this.label1.Text = "Высшая школы экономики и менеджмента";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
@@ -151,7 +151,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(466, 25);
             this.label10.TabIndex = 10;
-            this.label10.Text = "имени первого презедента России Б. Н. Ельцина";
+            this.label10.Text = "имени первого президента России Б. Н. Ельцина";
             // 
             // StartForm
             // 
@@ -169,8 +169,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartForm";
