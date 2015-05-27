@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="treeView1.Nodes" xml:space="preserve">
+    <value>Результаты выводятся автоматически в виде удобной и понятной \n таблицы, где в столбцах идет классификация по группам X, Y, Z, а в строках – по группам A, B, C. В ячейках – номера и названия товаров, которые были разгруппированы (рисунок 28). </value>
+  </data>
+  <data name="treeNode2.Text" xml:space="preserve">
+    <value>Результаты выводятся автоматически в виде удобной и понятной \n таблицы, где в столбцах идет классификация по группам X, Y, Z, а в строках – по группам A, B, C. В ячейках – номера и названия товаров, которые были разгруппированы (рисунок 28). </value>
+  </data>
 </root>

@@ -152,7 +152,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(16, 49);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(944, 362);
             this.dataGridView1.TabIndex = 1;
@@ -160,7 +160,7 @@
             // StartABCanalysis
             // 
             this.StartABCanalysis.Location = new System.Drawing.Point(5, 23);
-            this.StartABCanalysis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartABCanalysis.Margin = new System.Windows.Forms.Padding(4);
             this.StartABCanalysis.Name = "StartABCanalysis";
             this.StartABCanalysis.Size = new System.Drawing.Size(295, 28);
             this.StartABCanalysis.TabIndex = 3;
@@ -171,7 +171,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(320, 23);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(295, 28);
             this.button3.TabIndex = 4;
@@ -182,7 +182,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(636, 23);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(299, 28);
             this.button4.TabIndex = 5;
@@ -193,7 +193,7 @@
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(117, 103);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(200, 31);
             this.button7.TabIndex = 13;
@@ -206,7 +206,7 @@
             this.comboBox__delete_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox__delete_column.FormattingEnabled = true;
             this.comboBox__delete_column.Location = new System.Drawing.Point(248, 39);
-            this.comboBox__delete_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox__delete_column.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox__delete_column.Name = "comboBox__delete_column";
             this.comboBox__delete_column.Size = new System.Drawing.Size(193, 24);
             this.comboBox__delete_column.TabIndex = 12;
@@ -215,7 +215,7 @@
             // 
             this.checkBox_new_column_as_first.AutoSize = true;
             this.checkBox_new_column_as_first.Location = new System.Drawing.Point(89, 64);
-            this.checkBox_new_column_as_first.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox_new_column_as_first.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_new_column_as_first.Name = "checkBox_new_column_as_first";
             this.checkBox_new_column_as_first.Size = new System.Drawing.Size(276, 21);
             this.checkBox_new_column_as_first.TabIndex = 8;
@@ -225,7 +225,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(117, 103);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(200, 31);
             this.button6.TabIndex = 9;
@@ -246,7 +246,7 @@
             // New_column_name
             // 
             this.New_column_name.Location = new System.Drawing.Point(223, 16);
-            this.New_column_name.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.New_column_name.Margin = new System.Windows.Forms.Padding(4);
             this.New_column_name.Name = "New_column_name";
             this.New_column_name.Size = new System.Drawing.Size(196, 22);
             this.New_column_name.TabIndex = 11;
@@ -254,8 +254,9 @@
             // logs
             // 
             this.logs.Location = new System.Drawing.Point(8, 20);
-            this.logs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logs.Margin = new System.Windows.Forms.Padding(4);
             this.logs.Name = "logs";
+            this.logs.ReadOnly = true;
             this.logs.Size = new System.Drawing.Size(456, 147);
             this.logs.TabIndex = 8;
             this.logs.Text = "";
@@ -275,9 +276,9 @@
             // 
             this.groupBox_logs.Controls.Add(this.logs);
             this.groupBox_logs.Location = new System.Drawing.Point(485, 500);
-            this.groupBox_logs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_logs.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_logs.Name = "groupBox_logs";
-            this.groupBox_logs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_logs.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox_logs.Size = new System.Drawing.Size(475, 174);
             this.groupBox_logs.TabIndex = 11;
             this.groupBox_logs.TabStop = false;
@@ -289,9 +290,9 @@
             this.groupBox4.Controls.Add(this.StartABCanalysis);
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Location = new System.Drawing.Point(16, 423);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(944, 66);
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
@@ -303,7 +304,7 @@
             this.comboBox_rename_column.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_rename_column.FormattingEnabled = true;
             this.comboBox_rename_column.Location = new System.Drawing.Point(237, 16);
-            this.comboBox_rename_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_rename_column.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_rename_column.Name = "comboBox_rename_column";
             this.comboBox_rename_column.Size = new System.Drawing.Size(200, 24);
             this.comboBox_rename_column.TabIndex = 14;
@@ -311,7 +312,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(117, 103);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(200, 31);
             this.button5.TabIndex = 15;
@@ -322,7 +323,7 @@
             // textBox_rename_column
             // 
             this.textBox_rename_column.Location = new System.Drawing.Point(220, 60);
-            this.textBox_rename_column.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_rename_column.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_rename_column.Name = "textBox_rename_column";
             this.textBox_rename_column.Size = new System.Drawing.Size(217, 22);
             this.textBox_rename_column.TabIndex = 12;
@@ -343,7 +344,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(16, 502);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(461, 174);
@@ -356,9 +357,9 @@
             this.tabPage1.Controls.Add(this.New_column_name);
             this.tabPage1.Controls.Add(this.button6);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(453, 145);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Добавить столбец";
@@ -370,9 +371,9 @@
             this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.comboBox__delete_column);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(453, 145);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Удалить столбец";
@@ -396,7 +397,7 @@
             this.tabPage3.Controls.Add(this.textBox_rename_column);
             this.tabPage3.Controls.Add(this.button5);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(453, 145);
             this.tabPage3.TabIndex = 2;
@@ -425,7 +426,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Проведение ABC-XYZ-анализа";
             this.Load += new System.EventHandler(this.MainForm_Load);
