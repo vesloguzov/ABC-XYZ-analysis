@@ -1156,9 +1156,10 @@ namespace ABC_XYZ_analysis
         /* Нажатие "Справка" */
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form help = new HelpForm();
+            Help.ShowHelp(this, "file://C:\\Study\\ABC-XYZ-analysis\\ABC-XYZ-analysis\\Resources\\help.chm");
+            /*Form help = new HelpForm();
             help.StartPosition = FormStartPosition.CenterParent;
-            help.ShowDialog();
+            help.ShowDialog();*/
         }
     }
 }

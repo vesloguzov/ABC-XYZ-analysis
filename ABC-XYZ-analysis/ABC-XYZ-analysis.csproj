@@ -229,6 +229,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\help.chm" />
     <None Include="Resources\logo 200x370.jpg" />
   </ItemGroup>
   <ItemGroup>
