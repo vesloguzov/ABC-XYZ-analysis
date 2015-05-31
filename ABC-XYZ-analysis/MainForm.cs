@@ -1156,7 +1156,11 @@ namespace ABC_XYZ_analysis
         /* Нажатие "Справка" */
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(this, "file://C:\\Study\\ABC-XYZ-analysis\\ABC-XYZ-analysis\\Resources\\help.chm");
+            string HelpFilePath = Application.StartupPath+ "\\help.chm"; // путь к файлу справки
+            //p=p.Replace("'\'","\\");
+          //  MessageBox.Show(p);
+            Help.ShowHelp(this, HelpFilePath); // показать справку
+            //Help.ShowHelp(this, "file://C:\\Study\\ABC-XYZ-analysis\\ABC-XYZ-analysis\\Resources\\help.chm");
             /*Form help = new HelpForm();
             help.StartPosition = FormStartPosition.CenterParent;
             help.ShowDialog();*/
